@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:layout_alignParentTop="true"
+                  android:layout_margin="20dp"
+                  android:id="@+id/llUserImage">
+
+        <ImageView android:layout_width="48dp" android:layout_height="48dp"
+                   android:src="@drawable/user" android:layout_margin="5dp"/>
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:textSize="20sp"
+                  android:id="@+id/tvPatientName"
+                  android:layout_gravity="center_vertical"
+                  android:layout_marginLeft="20dp"
+                  android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:layout_below="@+id/llUserImage"
+                  android:layout_margin="20dp">
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:text="Hasta Bilgileri"
+                  android:id="@+id/tvHeader"
+                  android:textSize="20sp"/>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+              android:background="#000000"/>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginTop="10dp">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:textSize="16sp"
+                      android:text="Doğum Tarihi:"/>
+
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:textSize="16sp"
+                      android:id="@+id/tvPatientBirthday"
+                      android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginTop="10dp">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:textSize="16sp"
+                      android:text="Telefon Numarası:"/>
+
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:textSize="16sp"
+                      android:id="@+id/tvPatientPhoneNumber"
+                      android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginTop="10dp">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:textSize="16sp"
+                      android:text="Adresi:"/>
+
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:textSize="16sp"
+                      android:id="@+id/tvPatientAddress"
+                      android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_marginTop="10dp">
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:textSize="16sp"
+                      android:text="Eposta:"/>
+
+            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:textSize="16sp"
+                      android:id="@+id/tvPatientEmail"
+                      android:textStyle="bold"/>
+        </LinearLayout>
+
+        <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="ECG Sinyalleri"
+                android:id="@+id/bGoPatientECGSignalList"
+                android:layout_marginTop="20dp"/>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,7 +18,9 @@ import com.tobbetu.MobileECG_Doctor.model.User;
 public class UserDetailActivity extends Activity {
 
     ProgressDialog progressDialog = null;
-    TextView tvHastaAdi, tvHastaDogumGunu, tvHastaTelefonNo, tvHastaAdres, tvHastaEPosta;
+    TextView tvHastaAdi, tvHastaDogumGunu, tvHastaTelefonNo, tvHastaAdres, tvHastaCinsiyet, tvHastaBoyKilo,
+            tvHastaBMI, tvHastaAktivite, tvHastaSigara, tvHastaAlkol, tvHastaLDL, tvHastaHDL, tvHastaTansiyon, tvHastaSeker;
+
     Button bGoPatientECGSignalList;
     User user = null;
 
@@ -41,20 +44,52 @@ public class UserDetailActivity extends Activity {
 
     private void initialize() {
 
-        tvHastaAdi = (TextView) findViewById(R.id.tvPatientName);
-        tvHastaAdi.setText(user.getName() + " " + user.getSurname());
+        try {
 
-        tvHastaDogumGunu = (TextView) findViewById(R.id.tvPatientBirthday);
-        tvHastaDogumGunu.setText(user.getBirthday());
+            tvHastaAdi = (TextView) findViewById(R.id.tvPatientName);
+            tvHastaAdi.setText(user.getName() + " " + user.getSurname());
 
-        tvHastaTelefonNo = (TextView) findViewById(R.id.tvPatientPhoneNumber);
-        tvHastaTelefonNo.setText(user.getPhoneNumber());
+            tvHastaDogumGunu = (TextView) findViewById(R.id.tvPatientBirthday);
+            tvHastaDogumGunu.setText("" + user.getBirthday().getTime());
 
-        tvHastaAdres = (TextView) findViewById(R.id.tvPatientAddress);
-        tvHastaAdres.setText(user.getAddress());
+            tvHastaTelefonNo = (TextView) findViewById(R.id.tvPatientPhoneNumber);
+            tvHastaTelefonNo.setText(user.getPhoneNumber());
 
-        tvHastaEPosta = (TextView) findViewById(R.id.tvPatientEmail);
-        tvHastaEPosta.setText(user.getEmail());
+            tvHastaAdres = (TextView) findViewById(R.id.tvPatientAddress);
+            tvHastaAdres.setText(user.getAddress());
+
+            tvHastaCinsiyet = (TextView) findViewById(R.id.tvPatientSex);
+            tvHastaCinsiyet.setText(user.getSex());
+
+            tvHastaBoyKilo = (TextView) findViewById(R.id.tvPatientBoyKilo);
+            tvHastaBoyKilo.setText(user.getHeight() + " cm, " + user.getWeight() + " kg");
+
+            tvHastaBMI = (TextView) findViewById(R.id.tvPatientBMI);
+            tvHastaBMI.setText("BMI: " + user.getBmi());
+
+            tvHastaAktivite = (TextView) findViewById(R.id.tvPatientActivityFrequency);
+            tvHastaAktivite.setText("" + user.getActivityFrequency());
+
+            tvHastaSigara = (TextView) findViewById(R.id.tvPatientSmokingFrequency);
+            tvHastaSigara.setText("" + user.getSmokingFrequency());
+
+            tvHastaAlkol = (TextView) findViewById(R.id.tvPatientAlcoholFrequency);
+            tvHastaAlkol.setText("" + user.getAlcoholUsageFrequency());
+
+            tvHastaLDL = (TextView) findViewById(R.id.tvPatientKolestrolLDL);
+            tvHastaLDL.setText("" + user.getKolesterolLDL());
+
+            tvHastaHDL = (TextView) findViewById(R.id.tvPatientKolestrolHDL);
+            tvHastaHDL.setText("" + user.getKolesterolHDL());
+
+            tvHastaTansiyon = (TextView) findViewById(R.id.tvPatientHighTension);
+            tvHastaTansiyon.setText("" + user.isHasHypertension());
+
+            tvHastaSeker = (TextView) findViewById(R.id.tvPatientDiabets);
+            tvHastaSeker.setText("" + user.isHasDiabetes());
+        } catch (Exception e) {
+            Log.e("TAG", "Bir sorun cikti", e);
+        }
 
         bGoPatientECGSignalList = (Button) findViewById(R.id.bGoPatientECGSignalList);
         bGoPatientECGSignalList.setOnClickListener(new View.OnClickListener() {

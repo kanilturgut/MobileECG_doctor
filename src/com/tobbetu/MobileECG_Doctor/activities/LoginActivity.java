@@ -41,7 +41,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     AtomicInteger msgId = new AtomicInteger();
     SharedPreferences prefs;
     Context context;
-    String regid;
+    public static String regid;
 
 
     public void onCreate(Bundle savedInstanceState) {

@@ -1,6 +1,7 @@
 package com.tobbetu.MobileECG_Doctor.service;
 
 import com.tobbetu.MobileECG_Doctor.backend.Requests;
+import com.tobbetu.MobileECG_Doctor.model.Doctor;
 import com.tobbetu.MobileECG_Doctor.model.User;
 import com.tobbetu.MobileECG_Doctor.util.HttpURL;
 import org.apache.http.HttpResponse;
@@ -18,16 +19,16 @@ public class Register {
     final String TAG = "Register";
     String registerInfo;
 
-    public Register(User user) {
+    public Register(Doctor doctor) {
 
         JSONObject jsonObject = new JSONObject();
 
         try {
-            jsonObject.put("name", user.getName());
-            jsonObject.put("surname", user.getSurname());
-            jsonObject.put("username", user.getUsername());
-            jsonObject.put("password", user.getPassword());
-            jsonObject.put("deviceID", user.getDeviceID());
+            jsonObject.put("name", doctor.getName());
+            jsonObject.put("surname", doctor.getSurname());
+            jsonObject.put("username", doctor.getUsername());
+            jsonObject.put("password", doctor.getPassword());
+            jsonObject.put("deviceID", doctor.getDeviceID());
 
             registerInfo = jsonObject.toString();
         } catch (JSONException e) {

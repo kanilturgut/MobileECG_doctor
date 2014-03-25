@@ -4,6 +4,40 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:layout_margin="20dp"
+                  android:layout_alignParentTop="true">
+
+        <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:id="@+id/etRegisterDoctorName"
+                  android:layout_margin="5dp"
+                  android:singleLine="true"
+                  android:hint="Adınız"/>
+
+        <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:id="@+id/etRegisterDoctorSurname"
+                  android:layout_margin="5dp"
+                  android:singleLine="true"
+                  android:hint="Soyadınız"/>
+
+        <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:id="@+id/etRegisterDoctorUsername"
+                  android:layout_margin="5dp"
+                  android:singleLine="true"
+                  android:hint="Kullanıcı Adınız"/>
+
+        <EditText android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:id="@+id/etRegisterDoctorPassword"
+                  android:layout_margin="5dp"
+                  android:singleLine="true"
+                  android:inputType="textPassword"
+                  android:hint="Şifreniz"/>
+
+        <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:id="@+id/bDoRegister"
+                android:text="Kayıt Ol"/>
+    </LinearLayout>
 
 
 </RelativeLayout>

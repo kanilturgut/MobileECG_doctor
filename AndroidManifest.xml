@@ -3,7 +3,21 @@
           package="com.tobbetu.MobileECG_Doctor"
           android:versionCode="1"
           android:versionName="1.0">
-    <uses-sdk android:minSdkVersion="19"/>
+
+    <uses-sdk android:minSdkVersion="16"
+            android:targetSdkVersion="17"/>
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+
+    <permission
+            android:name="com.tobbetu.MobileECG_Doctor.permission.C2D_MESSAGE"
+            android:protectionLevel="signature"/>
+    <uses-permission android:name="com.tobbetu.MobileECG_Doctor.permission.C2D_MESSAGE"/>
 
     <application android:label="@string/app_name"
                  android:icon="@drawable/ic_launcher"
@@ -37,5 +51,20 @@
         <activity android:name=".activities.GrapViewOfPatient"
                   android:theme="@android:style/Theme.Light.NoTitleBar"
                   android:screenOrientation="portrait"/>
+        <activity android:name=".activities.LoginActivity"/>
+        <activity android:name=".activities.RegisterActivity"/>
+
+        <receiver
+                android:name=".receiver.GcmBroadcastReceiver"
+                android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <category android:name="com.tobbetu.MobileECG"/>
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+                android:name="com.google.android.gms.version"
+                android:value="@integer/google_play_services_version"/>
     </application>
 </manifest>

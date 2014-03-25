@@ -8,6 +8,8 @@ import android.widget.Button;
 import com.tobbetu.MobileECG_Doctor.R;
 import com.tobbetu.MobileECG_Doctor.model.User;
 
+import java.util.Date;
+
 /**
  * Created by kanilturgut on 16/03/14.
  */
@@ -26,31 +28,27 @@ public class HastaActivity extends Activity {
         if (index == 0) {
             user.setName("Kadir Anıl");
             user.setSurname("Turğut");
-            user.setBirthday("30.10.1988");
+            user.setBirthday(new Date());
             user.setPhoneNumber("05055851345");
             user.setAddress("Kardelen Mahallesi 2030.Sokak Berkay Sitesi No:8");
-            user.setEmail("anil@enforceapp.com");
         } else if (index == 1) {
             user.setName("Umut Ozan");
             user.setSurname("Yıldırım");
-            user.setBirthday("20.09.1991");
+            user.setBirthday(new Date());
             user.setPhoneNumber("05424122972");
             user.setAddress("TOBB ETÜ Öğrenci Konukevi B2 Blok");
-            user.setEmail("ozan@enforceapp.com");
         } else if (index == 2) {
             user.setName("Tansel");
             user.setSurname("Özyer");
-            user.setBirthday("30.10.1988");
+            user.setBirthday(new Date());
             user.setPhoneNumber("05055851345");
             user.setAddress("Kardelen Mahallesi 2030.Sokak Berkay Sitesi No:8");
-            user.setEmail("ozyer@etu.edu.tr");
         } else if (index == 3) {
             user.setName("Onur Can");
             user.setSurname("Sert");
-            user.setBirthday("30.10.1988");
+            user.setBirthday(new Date());
             user.setPhoneNumber("05055851345");
             user.setAddress("Ayrancı Ankara Dikmen");
-            user.setEmail("onur@enforceapp.com");
         } else {
             user = null;
         }

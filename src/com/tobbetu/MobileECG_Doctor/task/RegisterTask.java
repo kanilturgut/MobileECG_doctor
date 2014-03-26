@@ -13,7 +13,7 @@ import org.json.JSONException;
 import java.io.IOException;
 
 /**
- * Created by kanilturgut on 25/03/14.
+ * Created by kanilturgut on 25/03/14, 13:36.
  */
 public class RegisterTask extends AsyncTask<Doctor, Void, Boolean> {
 

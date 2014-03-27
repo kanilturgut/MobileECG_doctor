@@ -22,41 +22,11 @@ public class HastaActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hasta);
 
-        int index = getIntent().getIntExtra("index", -1);
-        patient = new Patient();
+        patient = (Patient) getIntent().getSerializableExtra("class");
 
-        if (index == 0) {
-            patient.setName("Kadir Anıl");
-            patient.setSurname("Turğut");
-            patient.setBirthday(new Date());
-            patient.setPhoneNumber("05055851345");
-            patient.setAddress("Kardelen Mahallesi 2030.Sokak Berkay Sitesi No:8");
-        } else if (index == 1) {
-            patient.setName("Umut Ozan");
-            patient.setSurname("Yıldırım");
-            patient.setBirthday(new Date());
-            patient.setPhoneNumber("05424122972");
-            patient.setAddress("TOBB ETÜ Öğrenci Konukevi B2 Blok");
-        } else if (index == 2) {
-            patient.setName("Tansel");
-            patient.setSurname("Özyer");
-            patient.setBirthday(new Date());
-            patient.setPhoneNumber("05055851345");
-            patient.setAddress("Kardelen Mahallesi 2030.Sokak Berkay Sitesi No:8");
-        } else if (index == 3) {
-            patient.setName("Onur Can");
-            patient.setSurname("Sert");
-            patient.setBirthday(new Date());
-            patient.setPhoneNumber("05055851345");
-            patient.setAddress("Ayrancı Ankara Dikmen");
-        } else {
-            patient = null;
-        }
-
-
-        if (patient != null) {
+        if (patient != null)
             initialize();
-        }
+
 
     }
 

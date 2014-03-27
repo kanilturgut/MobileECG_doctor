@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.Toast;
-import com.tobbetu.MobileECG_Doctor.activities.MainActivity;
+import com.tobbetu.MobileECG_Doctor.activities.AllPatientsListActivity;
 import com.tobbetu.MobileECG_Doctor.model.Doctor;
 import com.tobbetu.MobileECG_Doctor.service.Register;
 import org.json.JSONException;
@@ -52,7 +52,7 @@ public class RegisterTask extends AsyncTask<Doctor, Void, Boolean> {
             progressDialog.dismiss();
 
         if (result)
-            context.startActivity(new Intent(context, MainActivity.class));
+            context.startActivity(new Intent(context, AllPatientsListActivity.class));
         else
             Toast.makeText(context, "Register FAILED", Toast.LENGTH_LONG).show();
     }

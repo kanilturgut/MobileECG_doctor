@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.Toast;
-import com.tobbetu.MobileECG_Doctor.activities.MainActivity;
+import com.tobbetu.MobileECG_Doctor.activities.DoctorOperationsActivity;
 import com.tobbetu.MobileECG_Doctor.service.Login;
 import org.json.JSONException;
 
@@ -53,7 +53,7 @@ public class LoginTask extends AsyncTask<String, Void, Boolean>{
             progressDialog.dismiss();
 
         if (aBoolean)
-            context.startActivity(new Intent(context, MainActivity.class));
+            context.startActivity(new Intent(context, DoctorOperationsActivity.class));
         else
             Toast.makeText(context, "Login FAILED", Toast.LENGTH_LONG).show();
 

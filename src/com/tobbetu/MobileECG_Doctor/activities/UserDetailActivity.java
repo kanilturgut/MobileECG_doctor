@@ -17,6 +17,7 @@ import com.tobbetu.MobileECG_Doctor.model.Patient;
  */
 public class UserDetailActivity extends Activity {
 
+
     ProgressDialog progressDialog = null;
     TextView tvHastaAdi, tvHastaDogumGunu, tvHastaTelefonNo, tvHastaAdres, tvHastaCinsiyet, tvHastaBoyKilo,
             tvHastaBMI, tvHastaAktivite, tvHastaSigara, tvHastaAlkol, tvHastaLDL, tvHastaHDL, tvHastaTansiyon, tvHastaSeker;

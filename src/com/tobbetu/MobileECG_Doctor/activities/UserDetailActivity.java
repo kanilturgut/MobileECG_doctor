@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import com.tobbetu.MobileECG_Doctor.R;
-import com.tobbetu.MobileECG_Doctor.model.User;
+import com.tobbetu.MobileECG_Doctor.model.Patient;
 
 /**
  * Created by kanilturgut on 16/03/14.
@@ -22,7 +22,7 @@ public class UserDetailActivity extends Activity {
             tvHastaBMI, tvHastaAktivite, tvHastaSigara, tvHastaAlkol, tvHastaLDL, tvHastaHDL, tvHastaTansiyon, tvHastaSeker;
 
     Button bGoPatientECGSignalList;
-    User user = null;
+    Patient patient = null;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +30,7 @@ public class UserDetailActivity extends Activity {
 
         progressDialog = ProgressDialog.show(this, "Lütfen Bekleyiniz", "Hastanın bilgileri yükleniyor");
 
-        user = (User) getIntent().getSerializableExtra("class");
+        patient = (Patient) getIntent().getSerializableExtra("class");
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -47,46 +47,46 @@ public class UserDetailActivity extends Activity {
         try {
 
             tvHastaAdi = (TextView) findViewById(R.id.tvPatientName);
-            tvHastaAdi.setText(user.getName() + " " + user.getSurname());
+            tvHastaAdi.setText(patient.getName() + " " + patient.getSurname());
 
             tvHastaDogumGunu = (TextView) findViewById(R.id.tvPatientBirthday);
-            tvHastaDogumGunu.setText("" + user.getBirthday().getTime());
+            tvHastaDogumGunu.setText("" + patient.getBirthday().getTime());
 
             tvHastaTelefonNo = (TextView) findViewById(R.id.tvPatientPhoneNumber);
-            tvHastaTelefonNo.setText(user.getPhoneNumber());
+            tvHastaTelefonNo.setText(patient.getPhoneNumber());
 
             tvHastaAdres = (TextView) findViewById(R.id.tvPatientAddress);
-            tvHastaAdres.setText(user.getAddress());
+            tvHastaAdres.setText(patient.getAddress());
 
             tvHastaCinsiyet = (TextView) findViewById(R.id.tvPatientSex);
-            tvHastaCinsiyet.setText(user.getSex());
+            tvHastaCinsiyet.setText(patient.getSex());
 
             tvHastaBoyKilo = (TextView) findViewById(R.id.tvPatientBoyKilo);
-            tvHastaBoyKilo.setText(user.getHeight() + " cm, " + user.getWeight() + " kg");
+            tvHastaBoyKilo.setText(patient.getHeight() + " cm, " + patient.getWeight() + " kg");
 
             tvHastaBMI = (TextView) findViewById(R.id.tvPatientBMI);
-            tvHastaBMI.setText("BMI: " + user.getBmi());
+            tvHastaBMI.setText("BMI: " + patient.getBmi());
 
             tvHastaAktivite = (TextView) findViewById(R.id.tvPatientActivityFrequency);
-            tvHastaAktivite.setText("" + user.getActivityFrequency());
+            tvHastaAktivite.setText("" + patient.getActivityFrequency());
 
             tvHastaSigara = (TextView) findViewById(R.id.tvPatientSmokingFrequency);
-            tvHastaSigara.setText("" + user.getSmokingFrequency());
+            tvHastaSigara.setText("" + patient.getSmokingFrequency());
 
             tvHastaAlkol = (TextView) findViewById(R.id.tvPatientAlcoholFrequency);
-            tvHastaAlkol.setText("" + user.getAlcoholUsageFrequency());
+            tvHastaAlkol.setText("" + patient.getAlcoholUsageFrequency());
 
             tvHastaLDL = (TextView) findViewById(R.id.tvPatientKolestrolLDL);
-            tvHastaLDL.setText("" + user.getKolesterolLDL());
+            tvHastaLDL.setText("" + patient.getKolesterolLDL());
 
             tvHastaHDL = (TextView) findViewById(R.id.tvPatientKolestrolHDL);
-            tvHastaHDL.setText("" + user.getKolesterolHDL());
+            tvHastaHDL.setText("" + patient.getKolesterolHDL());
 
             tvHastaTansiyon = (TextView) findViewById(R.id.tvPatientHighTension);
-            tvHastaTansiyon.setText("" + user.isHasHypertension());
+            tvHastaTansiyon.setText("" + patient.isHasHypertension());
 
             tvHastaSeker = (TextView) findViewById(R.id.tvPatientDiabets);
-            tvHastaSeker.setText("" + user.isHasDiabetes());
+            tvHastaSeker.setText("" + patient.isHasDiabetes());
         } catch (Exception e) {
             Log.e("TAG", "Bir sorun cikti", e);
         }
@@ -96,7 +96,7 @@ public class UserDetailActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(UserDetailActivity.this, PatientECGSignalList.class);
-                i.putExtra("class", user);
+                i.putExtra("class", patient);
                 startActivity(i);
             }
         });

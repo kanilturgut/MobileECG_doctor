@@ -1,12 +1,23 @@
 package com.tobbetu.MobileECG_Doctor.model;
 
+import android.util.Log;
+import com.tobbetu.MobileECG_Doctor.backend.Requests;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
- * Created by kanilturgut on 16/03/14.
+ * Created by kanilturgut on 27/03/14, 13:01.
  */
-public class User implements Serializable{
+public class Patient implements Serializable {
 
     private Date birthday;
 
@@ -19,9 +30,9 @@ public class User implements Serializable{
     private String deviceID;
 
     private int sex;
-    private int activityFrequency;
     private int weight;                 // In kilograms
     private int height;                 // In centimeters
+    private int activityFrequency;
     private int smokingFrequency;
     private int alcoholUsageFrequency;
     private int kolesterolLDL;
@@ -30,7 +41,7 @@ public class User implements Serializable{
     private boolean hasHypertension;
     private boolean hasDiabetes;
 
-    private double  bmi;
+    private double bmi;
 
     public Date getBirthday() {
         return birthday;
@@ -183,4 +194,58 @@ public class User implements Serializable{
     public void setBmi(double bmi) {
         this.bmi = bmi;
     }
+
+    public static List<Patient> getList(String url) throws IOException, JSONException {
+        HttpResponse get = Requests.get(url);
+
+        if (!Requests.checkStatusCode(get, HttpStatus.SC_OK))
+            Log.e("Announcement.getList", "[ERROR] Status Code: "
+                    + get.getStatusLine().getStatusCode());
+        
+        String response = Requests.readResponse(get);
+        return Patient.parseList(response);
+    }
+
+    public static List<Patient> parseList(String response) throws JSONException {
+
+        List<Patient> patientList = new LinkedList<Patient>();
+
+        JSONArray results = new JSONArray(response);
+
+        for (int i = 0; i < results.length(); i++) {
+            JSONObject item = results.getJSONObject(i);
+            patientList.add(Patient.fromJSON(item));
+        }
+
+        return patientList;
+    }
+
+    public static Patient fromJSON(JSONObject obj) throws JSONException {
+
+        Patient patient = new Patient();
+        patient.setName(obj.getString("name"));
+        patient.setSurname(obj.getString("surname"));
+        patient.setUsername(obj.getString("username"));
+        patient.setPassword(obj.getString("password"));
+        patient.setPhoneNumber(obj.getString("phoneNumber"));
+        patient.setAddress(obj.getString("address"));
+        patient.setDeviceID(obj.getString("deviceID"));
+        patient.setBirthday(new Date());
+
+        patient.setSex(obj.getInt("sex"));
+        patient.setWeight(obj.getInt("weight"));
+        patient.setHeight(obj.getInt("height"));
+        patient.setActivityFrequency(obj.getInt("activityFrequency"));
+        patient.setSmokingFrequency(obj.getInt("smokingFrequency"));
+        patient.setAlcoholUsageFrequency(obj.getInt("alcoholUsageFrequency"));
+        patient.setKolesterolLDL(obj.getInt("kolesterolLDL"));
+        patient.setKolesterolHDL(obj.getInt("kolesterolHDL"));
+
+        patient.setHasHypertension(obj.getBoolean("hasHypertension"));
+        patient.setHasDiabetes(obj.getBoolean("hasDiabetes"));
+        patient.setBmi(obj.getDouble("bmi"));
+
+        return patient;
+    }
 }
+

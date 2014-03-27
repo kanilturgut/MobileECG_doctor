@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import com.tobbetu.MobileECG_Doctor.R;
 import com.tobbetu.MobileECG_Doctor.model.Doctor;
-import com.tobbetu.MobileECG_Doctor.model.User;
 import com.tobbetu.MobileECG_Doctor.task.RegisterTask;
 
 /**

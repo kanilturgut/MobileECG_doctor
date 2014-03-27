@@ -11,6 +11,10 @@ import android.os.Bundle;
 import android.util.Log;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.tobbetu.MobileECG_Doctor.R;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Iterator;
 
 /**
  * Created by kanilturgut on 25/03/14.
@@ -23,6 +27,23 @@ public class GcmBroadcastReceiver extends BroadcastReceiver{
 
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        try {
+            String action = intent.getAction();
+            String channel = intent.getExtras().getString("com.parse.Channel");
+            JSONObject json = new JSONObject(intent.getExtras().getString("com.parse.Data"));
+
+            Log.d("GcmBroadcastReceiver", "got action " + action + " on channel " + channel + " with:");
+            Iterator itr = json.keys();
+            while (itr.hasNext()) {
+                String key = (String) itr.next();
+                Log.d("GcmBroadcastReceiver", "..." + key + " => " + json.getString(key));
+            }
+        } catch (JSONException e) {
+            Log.d("GcmBroadcastReceiver", "JSONException: " + e.getMessage());
+        }
+
+        /*
         if (gcm == null)
             gcm = GoogleCloudMessaging.getInstance(context);
 
@@ -34,6 +55,8 @@ public class GcmBroadcastReceiver extends BroadcastReceiver{
             Log.i("GcmBroadcastReceiver", bundle.getString("msg"));
             sendNotification(context, bundle);
         }
+
+        */
     }
 
     private void sendNotification(Context context, Bundle bundle) {

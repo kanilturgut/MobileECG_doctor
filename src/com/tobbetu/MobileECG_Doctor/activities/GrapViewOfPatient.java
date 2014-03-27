@@ -11,13 +11,12 @@ import com.pubnub.api.PubnubException;
 import com.shimmerresearch.graph.GraphView;
 import com.tobbetu.MobileECG_Doctor.R;
 import com.tobbetu.MobileECG_Doctor.model.ECGData;
-import com.tobbetu.MobileECG_Doctor.model.User;
+import com.tobbetu.MobileECG_Doctor.model.Patient;
 import com.tobbetu.MobileECG_Doctor.util.Util;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -25,7 +24,7 @@ import java.util.List;
  */
 public class GrapViewOfPatient extends Activity {
 
-    User user = null;
+    Patient patient = null;
 
     GraphView graphView;
     TextView tv;
@@ -38,12 +37,12 @@ public class GrapViewOfPatient extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph_view_of_patient);
 
-        user = (User) getIntent().getSerializableExtra("class");
+        patient = (Patient) getIntent().getSerializableExtra("class");
 
         graphView = (GraphView) findViewById(R.id.mGraphView);
         tv = (TextView) findViewById(R.id.tvDeneme);
 
-        tv.setText(user.getName() + " " + user.getSurname());
+        tv.setText(patient.getName() + " " + patient.getSurname());
 
         int index = getIntent().getIntExtra("index", -1);
         final List<ECGData> list;

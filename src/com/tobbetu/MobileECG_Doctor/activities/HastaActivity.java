@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import com.tobbetu.MobileECG_Doctor.R;
-import com.tobbetu.MobileECG_Doctor.model.User;
+import com.tobbetu.MobileECG_Doctor.model.Patient;
 
 import java.util.Date;
 
@@ -15,7 +15,7 @@ import java.util.Date;
  */
 public class HastaActivity extends Activity {
 
-    User user = null;
+    Patient patient = null;
     Button bUserInfo, bUserECG;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -23,38 +23,38 @@ public class HastaActivity extends Activity {
         setContentView(R.layout.activity_hasta);
 
         int index = getIntent().getIntExtra("index", -1);
-        user = new User();
+        patient = new Patient();
 
         if (index == 0) {
-            user.setName("Kadir Anıl");
-            user.setSurname("Turğut");
-            user.setBirthday(new Date());
-            user.setPhoneNumber("05055851345");
-            user.setAddress("Kardelen Mahallesi 2030.Sokak Berkay Sitesi No:8");
+            patient.setName("Kadir Anıl");
+            patient.setSurname("Turğut");
+            patient.setBirthday(new Date());
+            patient.setPhoneNumber("05055851345");
+            patient.setAddress("Kardelen Mahallesi 2030.Sokak Berkay Sitesi No:8");
         } else if (index == 1) {
-            user.setName("Umut Ozan");
-            user.setSurname("Yıldırım");
-            user.setBirthday(new Date());
-            user.setPhoneNumber("05424122972");
-            user.setAddress("TOBB ETÜ Öğrenci Konukevi B2 Blok");
+            patient.setName("Umut Ozan");
+            patient.setSurname("Yıldırım");
+            patient.setBirthday(new Date());
+            patient.setPhoneNumber("05424122972");
+            patient.setAddress("TOBB ETÜ Öğrenci Konukevi B2 Blok");
         } else if (index == 2) {
-            user.setName("Tansel");
-            user.setSurname("Özyer");
-            user.setBirthday(new Date());
-            user.setPhoneNumber("05055851345");
-            user.setAddress("Kardelen Mahallesi 2030.Sokak Berkay Sitesi No:8");
+            patient.setName("Tansel");
+            patient.setSurname("Özyer");
+            patient.setBirthday(new Date());
+            patient.setPhoneNumber("05055851345");
+            patient.setAddress("Kardelen Mahallesi 2030.Sokak Berkay Sitesi No:8");
         } else if (index == 3) {
-            user.setName("Onur Can");
-            user.setSurname("Sert");
-            user.setBirthday(new Date());
-            user.setPhoneNumber("05055851345");
-            user.setAddress("Ayrancı Ankara Dikmen");
+            patient.setName("Onur Can");
+            patient.setSurname("Sert");
+            patient.setBirthday(new Date());
+            patient.setPhoneNumber("05055851345");
+            patient.setAddress("Ayrancı Ankara Dikmen");
         } else {
-            user = null;
+            patient = null;
         }
 
 
-        if (user != null) {
+        if (patient != null) {
             initialize();
         }
 
@@ -69,7 +69,7 @@ public class HastaActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(HastaActivity.this, PatientECGSignalList.class);
-                i.putExtra("class", user);
+                i.putExtra("class", patient);
                 startActivity(i);
             }
         });
@@ -78,7 +78,7 @@ public class HastaActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(HastaActivity.this, UserDetailActivity.class);
-                i.putExtra("class", user);
+                i.putExtra("class", patient);
                 startActivity(i);
             }
         });

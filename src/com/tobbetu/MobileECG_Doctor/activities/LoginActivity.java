@@ -29,7 +29,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     TextView tvRegister;
     Button bDoLogin;
 
-
     //GCM
     private static final String SENDER_ID = "678955541563";
     public static final String EXTRA_MESSAGE = "message";
@@ -202,7 +201,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 String password = etPassword.getText().toString().trim();
                 String regID = regid;
 
-                new LoginTask(LoginActivity.this).execute("anil", "123", regid);
+                new LoginTask(LoginActivity.this).execute("doctor", "pass", regid);
 
                 break;
             case R.id.tvRegister:

@@ -2,7 +2,6 @@ package com.tobbetu.MobileECG_Doctor.service;
 
 import com.tobbetu.MobileECG_Doctor.backend.Requests;
 import com.tobbetu.MobileECG_Doctor.model.Doctor;
-import com.tobbetu.MobileECG_Doctor.model.User;
 import com.tobbetu.MobileECG_Doctor.util.HttpURL;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;

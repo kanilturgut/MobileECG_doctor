@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,7 +15,6 @@ import com.tobbetu.MobileECG_Doctor.util.HttpURL;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.util.LinkedList;
 import java.util.List;
 
 

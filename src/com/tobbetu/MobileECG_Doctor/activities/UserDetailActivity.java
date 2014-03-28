@@ -2,45 +2,102 @@ package com.tobbetu.MobileECG_Doctor.activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.*;
 import com.tobbetu.MobileECG_Doctor.R;
 import com.tobbetu.MobileECG_Doctor.model.Patient;
+import com.tobbetu.MobileECG_Doctor.service.FollowPatient;
+import com.tobbetu.MobileECG_Doctor.util.HttpURL;
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by kanilturgut on 16/03/14.
  */
 public class UserDetailActivity extends Activity {
 
-
-    ProgressDialog progressDialog = null;
+    Context context = null;
     TextView tvHastaAdi, tvHastaDogumGunu, tvHastaTelefonNo, tvHastaAdres, tvHastaCinsiyet, tvHastaBoyKilo,
-            tvHastaBMI, tvHastaAktivite, tvHastaSigara, tvHastaAlkol, tvHastaLDL, tvHastaHDL, tvHastaTansiyon, tvHastaSeker;
+            tvHastaBMI, tvHastaAktivite, tvHastaSigara, tvHastaAlkol, tvHastaLDL, tvHastaHDL, tvHastaTansiyon, tvHastaSeker,
+            tvFollowing;
 
-    Button bGoPatientECGSignalList;
+    Button bGoPatientECGSignalList, bFollow;
     Patient patient = null;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_detail);
-
-        progressDialog = ProgressDialog.show(this, "Lütfen Bekleyiniz", "Hastanın bilgileri yükleniyor");
+        context = this;
 
         patient = (Patient) getIntent().getSerializableExtra("class");
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                progressDialog.dismiss();
-                initialize();
-            }
-        }, 3000);
+        initialize();
 
+        new AsyncTask<Void, Void, List<Patient>>() {
+
+            ProgressDialog progressDialog = null;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+
+                progressDialog = ProgressDialog.show(context, "Lütfen Bekleyiniz", "Takip ettiğiniz hastaların listesi yükleniyor...");
+            }
+
+            @Override
+            protected List<Patient> doInBackground(Void... voids) {
+
+                try {
+                    return Patient.getList(HttpURL.OP_GET_ENROLLED_PATIENTS_LIST);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    cancel(true);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    cancel(true);
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(final List<Patient> patients) {
+                super.onPostExecute(patients);
+
+                if (progressDialog != null)
+                    progressDialog.dismiss();
+
+                if (patients.size() > 0) {
+                    for (Patient patient1 : patients) {
+                        if (patient1.getId().equals(patient.getId())) {
+                            bFollow.setVisibility(View.GONE);
+                            tvFollowing.setVisibility(View.VISIBLE);
+                            break;
+                        }
+                    }
+
+                    bFollow.setVisibility(View.VISIBLE);
+                    tvFollowing.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            protected void onCancelled() {
+                super.onCancelled();
+
+                if (progressDialog != null)
+                    progressDialog.dismiss();
+
+                Toast.makeText(context, "Bir hata oluştu...", Toast.LENGTH_LONG).show();
+            }
+        }.execute();
     }
 
     private void initialize() {
@@ -88,6 +145,57 @@ public class UserDetailActivity extends Activity {
 
             tvHastaSeker = (TextView) findViewById(R.id.tvPatientDiabets);
             tvHastaSeker.setText("" + patient.isHasDiabetes());
+
+            tvFollowing = (TextView) findViewById(R.id.tvFollowing);
+            bFollow = (Button) findViewById(R.id.bFollow);
+            bFollow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    new AsyncTask<Void, Void, Boolean>() {
+
+                        ProgressDialog progressDialog = null;
+
+                        @Override
+                        protected void onPreExecute() {
+                            super.onPreExecute();
+                            progressDialog = ProgressDialog.show(context, "Lütfen Bekleyiniz", "İşleminiz gerçekleştiriliyor...");
+                        }
+
+                        @Override
+                        protected Boolean doInBackground(Void... voids) {
+
+                            FollowPatient followPatient = new FollowPatient(patient.getId());
+                            try {
+                                return followPatient.makeRequest();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                                cancel(true);
+                            }
+                            return false;
+                        }
+
+                        @Override
+                        protected void onPostExecute(Boolean aBoolean) {
+                            super.onPostExecute(aBoolean);
+                            progressDialog.dismiss();
+
+                            if (aBoolean) {
+                                tvFollowing.setVisibility(View.VISIBLE);
+                                bFollow.setVisibility(View.GONE);
+                            }
+
+                        }
+
+                        @Override
+                        protected void onCancelled() {
+                            super.onCancelled();
+                            Toast.makeText(context, "İşleminiz gerçekleştirilemiyor", Toast.LENGTH_LONG).show();
+                        }
+                    }.execute();
+                }
+            });
+
         } catch (Exception e) {
             Log.e("TAG", "Bir sorun cikti", e);
         }

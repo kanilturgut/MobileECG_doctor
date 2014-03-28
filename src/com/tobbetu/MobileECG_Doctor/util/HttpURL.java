@@ -9,4 +9,5 @@ public class HttpURL {
     public static final String OP_REGISTER = "/user/doctorRegister";
     public static final String OP_PATIENT_LIST = "/patient/patientList";
     public static final String OP_GET_ENROLLED_PATIENTS_LIST = "/doctor/followedPatients";
+    public static final String OP_FOLLOW_PATIENT = "/doctor/followPatient";
 }

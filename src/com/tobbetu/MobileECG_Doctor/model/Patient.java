@@ -21,6 +21,7 @@ public class Patient implements Serializable {
 
     private Date birthday;
 
+    private String id;
     private String name;
     private String surname;
     private String username;
@@ -49,6 +50,14 @@ public class Patient implements Serializable {
 
     public void setBirthday(Date birthday) {
         this.birthday = birthday;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -223,6 +232,7 @@ public class Patient implements Serializable {
     public static Patient fromJSON(JSONObject obj) throws JSONException {
 
         Patient patient = new Patient();
+        patient.setId(obj.getString("id"));
         patient.setName(obj.getString("name"));
         patient.setSurname(obj.getString("surname"));
         patient.setUsername(obj.getString("username"));

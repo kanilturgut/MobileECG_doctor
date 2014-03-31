@@ -19,6 +19,9 @@ import java.util.List;
  */
 public class Patient implements Serializable {
 
+    public static int PATIENT_SEX_MALE = 0;
+    public static int PATIENT_SEX_FEMALE = 1;
+
     private Date birthday;
 
     private String id;

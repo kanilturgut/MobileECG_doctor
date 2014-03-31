@@ -18,17 +18,7 @@ public class FollowPatient {
     String followInfo;
 
     public FollowPatient(String id) {
-
-        JSONObject jsonObject = new JSONObject();
-
-        try {
-            jsonObject.put("id", id);
-
-            this.followInfo = jsonObject.toString();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        this.followInfo = id;
     }
 
     public boolean makeRequest() throws IOException {

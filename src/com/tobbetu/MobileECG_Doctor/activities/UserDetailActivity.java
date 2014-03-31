@@ -83,8 +83,12 @@ public class UserDetailActivity extends Activity {
                         }
                     }
 
-                    bFollow.setVisibility(View.VISIBLE);
-                    tvFollowing.setVisibility(View.GONE);
+                    try {
+                        bFollow.setVisibility(View.VISIBLE);
+                        tvFollowing.setVisibility(View.GONE);
+                    } catch (Exception e) {
+
+                    }
                 }
             }
 
@@ -111,13 +115,18 @@ public class UserDetailActivity extends Activity {
             tvHastaDogumGunu.setText("" + patient.getBirthday().getTime());
 
             tvHastaTelefonNo = (TextView) findViewById(R.id.tvPatientPhoneNumber);
-            tvHastaTelefonNo.setText(patient.getPhoneNumber());
+            tvHastaTelefonNo.setText("0" + patient.getPhoneNumber());
 
             tvHastaAdres = (TextView) findViewById(R.id.tvPatientAddress);
             tvHastaAdres.setText(patient.getAddress());
 
             tvHastaCinsiyet = (TextView) findViewById(R.id.tvPatientSex);
-            tvHastaCinsiyet.setText(patient.getSex());
+            if (patient.getSex() == Patient.PATIENT_SEX_MALE)
+                tvHastaCinsiyet.setText("Erkek");
+            else if (patient.getSex() == Patient.PATIENT_SEX_FEMALE)
+                tvHastaCinsiyet.setText("Kadın");
+            else
+                tvHastaCinsiyet.setText("Belirtilmedi");
 
             tvHastaBoyKilo = (TextView) findViewById(R.id.tvPatientBoyKilo);
             tvHastaBoyKilo.setText(patient.getHeight() + " cm, " + patient.getWeight() + " kg");
@@ -147,6 +156,7 @@ public class UserDetailActivity extends Activity {
             tvHastaSeker.setText("" + patient.isHasDiabetes());
 
             tvFollowing = (TextView) findViewById(R.id.tvFollowing);
+
             bFollow = (Button) findViewById(R.id.bFollow);
             bFollow.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -7,6 +7,9 @@ import com.tobbetu.MobileECG_Doctor.model.ECGData;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,6 +18,19 @@ import java.util.List;
  */
 public class Util {
 
+    public static Date stringToDate(String strDate) {
+        try {
+            return new SimpleDateFormat("dd.MM.yyyy").parse(strDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return new Date();
+    }
+
+    public static String dateToString(Date date) {
+        return new SimpleDateFormat("dd.MM.yyyy").format(date);
+    }
 
     public static List<ECGData> readFromText(Context context, String filename) {
 

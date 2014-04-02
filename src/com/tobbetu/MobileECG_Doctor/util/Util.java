@@ -32,6 +32,11 @@ public class Util {
         return new SimpleDateFormat("dd.MM.yyyy").format(date);
     }
 
+    public static Date milisecondToDate(long milisecond) {
+        return new Date(milisecond);
+    }
+
+
     public static List<ECGData> readFromText(Context context, String filename) {
 
         List<ECGData> list = new LinkedList<ECGData>();

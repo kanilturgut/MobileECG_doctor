@@ -13,6 +13,7 @@ import com.tobbetu.MobileECG_Doctor.R;
 import com.tobbetu.MobileECG_Doctor.model.Patient;
 import com.tobbetu.MobileECG_Doctor.service.FollowPatient;
 import com.tobbetu.MobileECG_Doctor.util.HttpURL;
+import com.tobbetu.MobileECG_Doctor.util.Util;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -37,71 +38,7 @@ public class UserDetailActivity extends Activity {
         context = this;
 
         patient = (Patient) getIntent().getSerializableExtra("class");
-
-        initialize();
-
-        new AsyncTask<Void, Void, List<Patient>>() {
-
-            ProgressDialog progressDialog = null;
-
-            @Override
-            protected void onPreExecute() {
-                super.onPreExecute();
-
-                progressDialog = ProgressDialog.show(context, "Lütfen Bekleyiniz", "Takip ettiğiniz hastaların listesi yükleniyor...");
-            }
-
-            @Override
-            protected List<Patient> doInBackground(Void... voids) {
-
-                try {
-                    return Patient.getList(HttpURL.OP_GET_ENROLLED_PATIENTS_LIST);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    cancel(true);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    cancel(true);
-                }
-
-                return null;
-            }
-
-            @Override
-            protected void onPostExecute(final List<Patient> patients) {
-                super.onPostExecute(patients);
-
-                if (progressDialog != null)
-                    progressDialog.dismiss();
-
-                if (patients.size() > 0) {
-                    for (Patient patient1 : patients) {
-                        if (patient1.getId().equals(patient.getId())) {
-                            bFollow.setVisibility(View.GONE);
-                            tvFollowing.setVisibility(View.VISIBLE);
-                            break;
-                        }
-                    }
-
-                    try {
-                        bFollow.setVisibility(View.VISIBLE);
-                        tvFollowing.setVisibility(View.GONE);
-                    } catch (Exception e) {
-
-                    }
-                }
-            }
-
-            @Override
-            protected void onCancelled() {
-                super.onCancelled();
-
-                if (progressDialog != null)
-                    progressDialog.dismiss();
-
-                Toast.makeText(context, "Bir hata oluştu...", Toast.LENGTH_LONG).show();
-            }
-        }.execute();
+        isFollowingByDoctor();
     }
 
     private void initialize() {
@@ -112,7 +49,7 @@ public class UserDetailActivity extends Activity {
             tvHastaAdi.setText(patient.getName() + " " + patient.getSurname());
 
             tvHastaDogumGunu = (TextView) findViewById(R.id.tvPatientBirthday);
-            tvHastaDogumGunu.setText("" + patient.getBirthday().getTime());
+            tvHastaDogumGunu.setText(Util.dateToString(Util.milisecondToDate(patient.getBirthday().getTime())));
 
             tvHastaTelefonNo = (TextView) findViewById(R.id.tvPatientPhoneNumber);
             tvHastaTelefonNo.setText("0" + patient.getPhoneNumber());
@@ -132,32 +69,62 @@ public class UserDetailActivity extends Activity {
             tvHastaBoyKilo.setText(patient.getHeight() + " cm, " + patient.getWeight() + " kg");
 
             tvHastaBMI = (TextView) findViewById(R.id.tvPatientBMI);
-            tvHastaBMI.setText("BMI: " + patient.getBmi());
+            tvHastaBMI.setText("BMI: " + String.valueOf(patient.getBmi()));
 
             tvHastaAktivite = (TextView) findViewById(R.id.tvPatientActivityFrequency);
-            tvHastaAktivite.setText("" + patient.getActivityFrequency());
+            if (Patient.ACTIVITY_FREQUENCY_ADVANCED == patient.getActivityFrequency())
+                tvHastaAktivite.setText("Düzenli");
+            else if (Patient.ACTIVITY_FREQUENCY_INTERMEDIATE == patient.getActivityFrequency())
+                tvHastaAktivite.setText("Fırsat buldukça");
+            else if (Patient.ACTIVITY_FREQUENCY_NONE == patient.getActivityFrequency())
+                tvHastaAktivite.setText("Yapmıyor");
+            else
+                tvHastaAktivite.setText("Belirtilmemiş");
 
             tvHastaSigara = (TextView) findViewById(R.id.tvPatientSmokingFrequency);
-            tvHastaSigara.setText("" + patient.getSmokingFrequency());
+            if (Patient.SMOKING_FREQUENCY_FREQUENT == patient.getSmokingFrequency())
+                tvHastaSigara.setText("Çok içiyor");
+            else if (Patient.SMOKING_FREQUENCY_SOCIAL == patient.getSmokingFrequency())
+                tvHastaSigara.setText("Arada sırada");
+            else if (Patient.SMOKING_FREQUENCY_NONE == patient.getSmokingFrequency())
+                tvHastaSigara.setText("İçmiyor");
+            else if (Patient.SMOKING_FREQUENCY_QUIT == patient.getSmokingFrequency())
+                tvHastaSigara.setText("Bırakmış");
+            else
+                tvHastaSigara.setText("Belirtilmemiş");
 
             tvHastaAlkol = (TextView) findViewById(R.id.tvPatientAlcoholFrequency);
-            tvHastaAlkol.setText("" + patient.getAlcoholUsageFrequency());
+            if (Patient.SMOKING_FREQUENCY_FREQUENT == patient.getAlcoholUsageFrequency())
+                tvHastaAlkol.setText("Çok içiyor");
+            else if (Patient.SMOKING_FREQUENCY_SOCIAL == patient.getAlcoholUsageFrequency())
+                tvHastaAlkol.setText("Arada sırada");
+            else if (Patient.SMOKING_FREQUENCY_NONE == patient.getAlcoholUsageFrequency())
+                tvHastaAlkol.setText("İçmiyor");
+            else if (Patient.SMOKING_FREQUENCY_QUIT == patient.getAlcoholUsageFrequency())
+                tvHastaAlkol.setText("Bırakmış");
+            else
+                tvHastaAlkol.setText("Belirtilmemiş");
+
 
             tvHastaLDL = (TextView) findViewById(R.id.tvPatientKolestrolLDL);
-            tvHastaLDL.setText("" + patient.getKolesterolLDL());
+            tvHastaLDL.setText(String.valueOf(patient.getKolesterolLDL()));
 
             tvHastaHDL = (TextView) findViewById(R.id.tvPatientKolestrolHDL);
-            tvHastaHDL.setText("" + patient.getKolesterolHDL());
+            tvHastaHDL.setText(String.valueOf(patient.getKolesterolHDL()));
 
             tvHastaTansiyon = (TextView) findViewById(R.id.tvPatientHighTension);
-            tvHastaTansiyon.setText("" + patient.isHasHypertension());
+            if (patient.isHasHypertension())
+                tvHastaTansiyon.setText("Var");
+            else
+                tvHastaTansiyon.setText("Yok");
 
-            tvHastaSeker = (TextView) findViewById(R.id.tvPatientDiabets);
-            tvHastaSeker.setText("" + patient.isHasDiabetes());
+            if (patient.isHasDiabetes())
+                tvHastaSeker.setText("Var");
+            else
+                tvHastaSeker.setText("Yok");
 
             tvFollowing = (TextView) findViewById(R.id.tvFollowing);
 
-            bFollow = (Button) findViewById(R.id.bFollow);
             bFollow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -194,7 +161,6 @@ public class UserDetailActivity extends Activity {
                                 tvFollowing.setVisibility(View.VISIBLE);
                                 bFollow.setVisibility(View.GONE);
                             }
-
                         }
 
                         @Override
@@ -219,6 +185,71 @@ public class UserDetailActivity extends Activity {
                 startActivity(i);
             }
         });
+    }
 
+    void isFollowingByDoctor() {
+        new AsyncTask<Void, Void, List<Patient>>() {
+
+            ProgressDialog progressDialog = null;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+
+                bFollow = (Button) findViewById(R.id.bFollow);
+                progressDialog = ProgressDialog.show(context, "Lütfen Bekleyiniz", "Takip ettiğiniz hastaların listesi yükleniyor...");
+            }
+
+            @Override
+            protected List<Patient> doInBackground(Void... voids) {
+
+                try {
+                    return Patient.getList(HttpURL.OP_GET_ENROLLED_PATIENTS_LIST);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    cancel(true);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    cancel(true);
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(final List<Patient> patients) {
+                super.onPostExecute(patients);
+
+                initialize();
+
+                if (progressDialog != null)
+                    progressDialog.dismiss();
+
+                if (patients.size() > 0) {
+                    for (Patient patient1 : patients) {
+                        if (patient1.getId().equals(patient.getId())) {
+                            bFollow.setVisibility(View.GONE);
+                            tvFollowing.setVisibility(View.VISIBLE);
+                            break;
+                        } else {
+                            bFollow.setVisibility(View.VISIBLE);
+                            tvFollowing.setVisibility(View.GONE);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            protected void onCancelled() {
+                super.onCancelled();
+
+                initialize();
+
+                if (progressDialog != null)
+                    progressDialog.dismiss();
+
+                Toast.makeText(context, "Bir hata oluştu...", Toast.LENGTH_LONG).show();
+            }
+        }.execute();
     }
 }

@@ -22,6 +22,20 @@ public class Patient implements Serializable {
     public static int PATIENT_SEX_MALE = 0;
     public static int PATIENT_SEX_FEMALE = 1;
 
+    public static final int ACTIVITY_FREQUENCY_NONE         = 0;
+    public static final int ACTIVITY_FREQUENCY_INTERMEDIATE = 1;
+    public static final int ACTIVITY_FREQUENCY_ADVANCED     = 2;
+
+    public static final int SMOKING_FREQUENCY_NONE          = 0;
+    public static final int SMOKING_FREQUENCY_FREQUENT      = 1;
+    public static final int SMOKING_FREQUENCY_SOCIAL        = 2;
+    public static final int SMOKING_FREQUENCY_QUIT          = 3;
+
+    public static final int ALCOHOL_FREQUENCY_NONE          = 0;
+    public static final int ALCOHOL_FREQUENCY_FREQUENT      = 1;
+    public static final int ALCOHOL_FREQUENCY_SOCIAL        = 2;
+    public static final int ALCOHOL_FREQUENCY_QUIT          = 3;
+
     private Date birthday;
 
     private String id;

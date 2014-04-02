@@ -8,8 +8,6 @@ import android.widget.Button;
 import com.tobbetu.MobileECG_Doctor.R;
 import com.tobbetu.MobileECG_Doctor.model.Patient;
 
-import java.util.Date;
-
 /**
  * Created by kanilturgut on 16/03/14.
  */
@@ -47,7 +45,7 @@ public class HastaActivity extends Activity {
         bUserInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(HastaActivity.this, UserDetailActivity.class);
+                Intent i = new Intent(HastaActivity.this, PatientDetailsActivity.class);
                 i.putExtra("class", patient);
                 startActivity(i);
             }

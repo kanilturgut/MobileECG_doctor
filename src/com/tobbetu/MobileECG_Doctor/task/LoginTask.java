@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.Toast;
 import com.tobbetu.MobileECG_Doctor.activities.DoctorOperationsActivity;
+import com.tobbetu.MobileECG_Doctor.model.Doctor;
 import com.tobbetu.MobileECG_Doctor.service.Login;
+import org.apache.http.HttpResponse;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -14,7 +16,7 @@ import java.io.IOException;
 /**
  * Created by kanilturgut on 25/03/14.
  */
-public class LoginTask extends AsyncTask<String, Void, Boolean>{
+public class LoginTask extends AsyncTask<String, Void, HttpResponse>{
 
     Context context = null;
     ProgressDialog progressDialog = null;
@@ -30,7 +32,7 @@ public class LoginTask extends AsyncTask<String, Void, Boolean>{
     }
 
     @Override
-    protected Boolean doInBackground(String... strings) {
+    protected HttpResponse doInBackground(String... strings) {
 
         Login login = new Login(strings);
 
@@ -42,20 +44,29 @@ public class LoginTask extends AsyncTask<String, Void, Boolean>{
             e.printStackTrace();
         }
 
-        return false;
+        return null;
     }
 
     @Override
-    protected void onPostExecute(Boolean aBoolean) {
-        super.onPostExecute(aBoolean);
+    protected void onPostExecute(HttpResponse response) {
+        super.onPostExecute(response);
 
         if (progressDialog != null)
             progressDialog.dismiss();
 
-        if (aBoolean)
-            context.startActivity(new Intent(context, DoctorOperationsActivity.class));
-        else
-            Toast.makeText(context, "Login FAILED", Toast.LENGTH_LONG).show();
+        try {
+            Doctor doctor = Doctor.getDoctor(response);
 
+            Intent intent = new Intent(context, DoctorOperationsActivity.class);
+            intent.putExtra("class", doctor);
+            context.startActivity(intent);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(context, "Login FAILED", Toast.LENGTH_LONG).show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Toast.makeText(context, "Login FAILED", Toast.LENGTH_LONG).show();
+        }
     }
 }

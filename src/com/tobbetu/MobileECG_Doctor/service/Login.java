@@ -33,12 +33,12 @@ public class Login {
         }
     }
 
-    public boolean makeRequest() throws IOException, JSONException {
+    public HttpResponse makeRequest() throws IOException, JSONException {
         HttpResponse response = Requests.post(HttpURL.OP_LOGIN, loginInfo);
 
         if (Requests.checkStatusCode(response, HttpStatus.SC_OK))
-            return true;
+            return response;
         else
-            return false;
+            return null;
     }
 }

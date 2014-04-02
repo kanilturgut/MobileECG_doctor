@@ -202,7 +202,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 String regID = regid;
 
                 new LoginTask(LoginActivity.this).execute("doctor", "pass", regid);
-
                 break;
             case R.id.tvRegister:
                 Intent i = new Intent(this, RegisterActivity.class);

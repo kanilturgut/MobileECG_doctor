@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created by kanilturgut on 16/03/14.
  */
-public class UserDetailActivity extends Activity {
+public class PatientDetailsActivity extends Activity {
 
     Context context = null;
     TextView tvHastaAdi, tvHastaDogumGunu, tvHastaTelefonNo, tvHastaAdres, tvHastaCinsiyet, tvHastaBoyKilo,
@@ -94,13 +94,13 @@ public class UserDetailActivity extends Activity {
                 tvHastaSigara.setText("Belirtilmemiş");
 
             tvHastaAlkol = (TextView) findViewById(R.id.tvPatientAlcoholFrequency);
-            if (Patient.SMOKING_FREQUENCY_FREQUENT == patient.getAlcoholUsageFrequency())
+            if (Patient.ALCOHOL_FREQUENCY_FREQUENT == patient.getAlcoholUsageFrequency())
                 tvHastaAlkol.setText("Çok içiyor");
-            else if (Patient.SMOKING_FREQUENCY_SOCIAL == patient.getAlcoholUsageFrequency())
+            else if (Patient.ALCOHOL_FREQUENCY_SOCIAL == patient.getAlcoholUsageFrequency())
                 tvHastaAlkol.setText("Arada sırada");
-            else if (Patient.SMOKING_FREQUENCY_NONE == patient.getAlcoholUsageFrequency())
+            else if (Patient.ALCOHOL_FREQUENCY_NONE == patient.getAlcoholUsageFrequency())
                 tvHastaAlkol.setText("İçmiyor");
-            else if (Patient.SMOKING_FREQUENCY_QUIT == patient.getAlcoholUsageFrequency())
+            else if (Patient.ALCOHOL_FREQUENCY_QUIT == patient.getAlcoholUsageFrequency())
                 tvHastaAlkol.setText("Bırakmış");
             else
                 tvHastaAlkol.setText("Belirtilmemiş");
@@ -180,7 +180,7 @@ public class UserDetailActivity extends Activity {
         bGoPatientECGSignalList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(UserDetailActivity.this, PatientECGSignalList.class);
+                Intent i = new Intent(PatientDetailsActivity.this, PatientECGSignalList.class);
                 i.putExtra("class", patient);
                 startActivity(i);
             }

@@ -6,9 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 import com.parse.Parse;
 import com.parse.PushService;
 import com.tobbetu.MobileECG_Doctor.R;
+import com.tobbetu.MobileECG_Doctor.android_service.MobileECGDoctorService;
 import com.tobbetu.MobileECG_Doctor.model.Doctor;
 
 /**
@@ -18,7 +20,8 @@ public class DoctorOperationsActivity extends Activity implements View.OnClickLi
 
     Context context = null;
     Button bShowAllPatients, bShowEnrolledPatients;
-    Doctor doctor = null;
+    public static Doctor doctor = null;
+    boolean fromService;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,8 +30,13 @@ public class DoctorOperationsActivity extends Activity implements View.OnClickLi
 
         doctor = (Doctor) getIntent().getSerializableExtra("class");
 
-        Parse.initialize(getApplicationContext(), "Otb0jFkKfqV54fkZn5OVilaNoZ6yrnTYADs9cCc6", "RjMoc9RDfqsdZIIbr4T9VAhCrbRjO6Y6abeImYI9");
-        PushService.subscribe(getApplicationContext(), doctor.getId(), LoginActivity.class);
+        PushService.subscribe(getApplicationContext(), "A" + doctor.getId(), LoginActivity.class);
+
+        if (MobileECGDoctorService.fromService) {
+            MobileECGDoctorService.fromService = false;
+
+            Toast.makeText(context, "Push Notification ile geldin", Toast.LENGTH_LONG).show();
+        }
 
         bShowAllPatients = (Button) findViewById(R.id.bShowAllPatients);
         bShowAllPatients.setOnClickListener(this);
@@ -44,6 +52,7 @@ public class DoctorOperationsActivity extends Activity implements View.OnClickLi
             startActivity(new Intent(context, AllPatientsListActivity.class));
         } else {
             startActivity(new Intent(context, ShowEnrolledPatientsListActivity.class));
+            //startActivity(new Intent(context, MapActivity.class));
         }
     }
 }

@@ -3,6 +3,7 @@ package com.tobbetu.MobileECG_Doctor.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
 import android.widget.TextView;
 import com.pubnub.api.Callback;
 import com.pubnub.api.Pubnub;
@@ -151,5 +152,10 @@ public class GrapViewOfPatient extends Activity {
         } catch (PubnubException e) {
             System.out.println(e.toString());
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
     }
 }

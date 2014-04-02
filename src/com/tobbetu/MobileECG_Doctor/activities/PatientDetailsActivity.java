@@ -118,6 +118,7 @@ public class PatientDetailsActivity extends Activity {
             else
                 tvHastaTansiyon.setText("Yok");
 
+            tvHastaSeker = (TextView) findViewById(R.id.tvPatientDiabets);
             if (patient.isHasDiabetes())
                 tvHastaSeker.setText("Var");
             else
@@ -158,8 +159,11 @@ public class PatientDetailsActivity extends Activity {
                             progressDialog.dismiss();
 
                             if (aBoolean) {
+                                Toast.makeText(context, "Hasta takip işlemi başarı ile sonuçlandı", Toast.LENGTH_LONG).show();
                                 tvFollowing.setVisibility(View.VISIBLE);
                                 bFollow.setVisibility(View.GONE);
+                            } else {
+                                Toast.makeText(context, "Hasta takip işlemi sırasında bir sorun yaşandı", Toast.LENGTH_LONG).show();
                             }
                         }
 

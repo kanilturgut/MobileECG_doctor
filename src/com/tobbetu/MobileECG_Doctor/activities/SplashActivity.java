@@ -7,6 +7,7 @@ import android.os.Handler;
 import com.parse.Parse;
 import com.parse.PushService;
 import com.tobbetu.MobileECG_Doctor.R;
+import com.tobbetu.MobileECG_Doctor.android_service.MobileECGDoctorService;
 
 public class SplashActivity extends Activity {
     /**
@@ -16,6 +17,8 @@ public class SplashActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        startService(new Intent(this, MobileECGDoctorService.class));
 
         new Handler().postDelayed(new Runnable() {
             @Override

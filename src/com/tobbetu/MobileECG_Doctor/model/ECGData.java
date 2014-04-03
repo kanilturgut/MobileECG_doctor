@@ -1,5 +1,9 @@
 package com.tobbetu.MobileECG_Doctor.model;
 
+import android.util.Log;
+import com.tobbetu.MobileECG_Doctor.util.Util;
+import org.json.JSONObject;
+
 import java.util.Date;
 
 /**
@@ -7,6 +11,7 @@ import java.util.Date;
  */
 public class ECGData {
 
+    String id;
     Date date;
     double latitude;
     double longitude;
@@ -15,6 +20,14 @@ public class ECGData {
     int RAW_ra_ll;
     int RAW_la_ll;
     int userState;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public Date getDate() {
         return date;
@@ -79,4 +92,28 @@ public class ECGData {
     public void setUserState(int userState) {
         this.userState = userState;
     }
+
+    public static ECGData fromJSON(JSONObject object) {
+
+        ECGData ecgData = new ECGData();
+
+        ecgData.setId(object.optString("id"));
+        ecgData.setUserState(object.optInt("userState"));
+        ecgData.setRa_ll(object.optDouble("ra_ll"));
+        ecgData.setLa_ll(object.optDouble("la_ll"));
+        ecgData.setRAW_ra_ll(object.optInt("raw_ra_ll"));
+        ecgData.setRAW_la_ll(object.optInt("raw_la_ll"));
+        try {
+            ecgData.setDate(Util.milisecondToDate(object.optLong("date")));
+        } catch (Exception e) {
+            Log.e("ECGData", "Birthday FAILED", e);
+            ecgData.setDate(new Date());
+        }
+
+        ecgData.setLatitude(object.optDouble("latitude"));
+        ecgData.setLongitude(object.optDouble("longitude"));
+
+        return ecgData;
+    }
+
 }

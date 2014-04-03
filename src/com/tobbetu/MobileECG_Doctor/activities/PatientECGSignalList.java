@@ -110,6 +110,7 @@ public class PatientECGSignalList extends Activity {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Intent intent = new Intent(PatientECGSignalList.this, GrapViewOfPatient.class);
+                    intent.putExtra("patient", patient);
                     intent.putExtra("anomaly", anomalyList.get(i));
                     startActivity(intent);
                 }

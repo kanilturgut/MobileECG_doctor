@@ -68,6 +68,15 @@ public class Anomaly implements Serializable{
         this.ecgDataList = ecgDataList;
     }
 
+    public static Anomaly getPatientAnomalyWithId(String anomalyId) throws IOException, JSONException {
+        HttpResponse response = Requests.post(HttpURL.OP_GET_PATIENT_ANOMALY_WITHID, anomalyId);
+
+        if (Requests.checkStatusCode(response, HttpStatus.SC_OK))
+            return Anomaly.fromJSONWithECGData(Anomaly.anomalyToJsonObject(Requests.readResponse(response)));
+        else
+            return null;
+    }
+
     public static List<Anomaly> getPatientAnomalies(String patientId) throws IOException, JSONException {
         HttpResponse response = Requests.post(HttpURL.OP_GET_PATIENT_ANOMALIES, patientId);
 
@@ -90,14 +99,48 @@ public class Anomaly implements Serializable{
         return anomalyList;
     }
 
+    private static JSONObject anomalyToJsonObject(String response) throws JSONException {
+        return new JSONObject(response);
+    }
+
     private static Anomaly fromJSON(JSONObject obj) throws JSONException {
 
         Anomaly anomaly = new Anomaly();
         anomaly.setId(obj.getString("id"));
         anomaly.setDate(Util.milisecondToDate(obj.getLong("annotationDate")));
-        //anomaly.setDetectedAnomalies((boolean[])obj.get("detectedAnomalies"));
-        //anomaly.setPatient((Patient) obj.get("patient"));
-        //anomaly.setEcgDataList((List<ECGData>) obj.get("anormalWaves"));
+
+        JSONArray jsonArray = obj.getJSONArray("detectedAnomalies");
+        boolean[] detectedAnomalies = new boolean[3];
+        for (int i = 0; i < 3; i++) {
+            detectedAnomalies[i] = jsonArray.getBoolean(i);
+        }
+
+        anomaly.setDetectedAnomalies(detectedAnomalies);
+
+        return anomaly;
+    }
+
+    private static Anomaly fromJSONWithECGData(JSONObject obj) throws JSONException {
+
+        Anomaly anomaly = new Anomaly();
+        anomaly.setId(obj.getString("id"));
+        anomaly.setDate(Util.milisecondToDate(obj.getLong("annotationDate")));
+
+        JSONArray jsonArray = obj.getJSONArray("detectedAnomalies");
+        boolean[] detectedAnomalies = new boolean[3];
+        for (int i = 0; i < 3; i++) {
+            detectedAnomalies[i] = jsonArray.getBoolean(i);
+        }
+        anomaly.setDetectedAnomalies(detectedAnomalies);
+
+        List<ECGData> list = new LinkedList<ECGData>();
+        jsonArray = obj.getJSONArray("anormalWaves");
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            list.add(ECGData.fromJSON(jsonObject));
+        }
+        anomaly.setEcgDataList(list);
 
         return anomaly;
     }

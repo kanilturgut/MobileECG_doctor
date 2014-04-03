@@ -2,6 +2,7 @@ package com.tobbetu.MobileECG_Doctor.model;
 
 import android.util.Log;
 import com.tobbetu.MobileECG_Doctor.backend.Requests;
+import com.tobbetu.MobileECG_Doctor.util.Util;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.json.JSONArray;

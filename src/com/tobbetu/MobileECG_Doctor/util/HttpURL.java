@@ -10,4 +10,6 @@ public class HttpURL {
     public static final String OP_PATIENT_LIST = "/patient/patientList";
     public static final String OP_GET_ENROLLED_PATIENTS_LIST = "/doctor/followedPatients";
     public static final String OP_FOLLOW_PATIENT = "/doctor/followPatient";
+    public static final String OP_GET_PATIENT_ANOMALIES = "/patient/patientAnomalies";
+    public static final String OP_GET_PATIENT_ANOMALY_WITHID = "/patient/patientAnomalyWithId";
 }

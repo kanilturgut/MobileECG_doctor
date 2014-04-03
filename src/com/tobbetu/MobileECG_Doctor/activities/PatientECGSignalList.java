@@ -2,57 +2,124 @@ package com.tobbetu.MobileECG_Doctor.activities;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 import com.tobbetu.MobileECG_Doctor.R;
+import com.tobbetu.MobileECG_Doctor.model.Anomaly;
 import com.tobbetu.MobileECG_Doctor.model.Patient;
+import com.tobbetu.MobileECG_Doctor.util.Util;
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Created by kanilturgut on 16/03/14.
  */
 public class PatientECGSignalList extends Activity {
 
-    ProgressDialog progressDialog = null;
+    Context context = null;
     ListView lvECGSignals;
     Patient patient = null;
 
-    String ECG_SIGNALS[] = {"16.03.2014", "13.03.2014", "09.03.2014", "25.02.2014"};
+    List<Anomaly> anomalyList = null;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_ecgsignals_list);
+        context = this;
 
         patient = (Patient) getIntent().getSerializableExtra("class");
 
-        progressDialog = ProgressDialog.show(this, "Lütfen Bekleyiniz", "Hastaya ait anomali tespiti yapılan ecg sinyalleri yükleniyor");
+        new AsyncTask<String, Void, List<Anomaly>>() {
 
-        new Handler().postDelayed(new Runnable() {
+            ProgressDialog progressDialog = null;
+
             @Override
-            public void run() {
-                progressDialog.dismiss();
-                initialize();
+            protected void onPreExecute() {
+                super.onPreExecute();
+
+                progressDialog = ProgressDialog.show(context, "Lütfen Bekleyiniz", "Hastaya ait anomali tespiti yapılan ecg sinyalleri yükleniyor");
             }
-        }, 500);
+
+            @Override
+            protected List<Anomaly> doInBackground(String... strings) {
+
+                try {
+                    return Anomaly.getPatientAnomalies(patient.getId());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    cancel(true);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    cancel(true);
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(List<Anomaly> anomalies) {
+                super.onPostExecute(anomalies);
+
+                if (progressDialog != null)
+                    progressDialog.dismiss();
+
+                if (anomalies != null) {
+                    anomalyList = anomalies;
+                    initialize();
+                }
+
+            }
+
+            @Override
+            protected void onCancelled() {
+                super.onCancelled();
+
+                if (progressDialog != null)
+                    progressDialog.dismiss();
+
+                Toast.makeText(context, "Üzgünüz ama sinyalleri listeleyemiyoruz. Lütfen daha sonra tekrar deneyiniz.", Toast.LENGTH_LONG).show();
+            }
+        }.execute();
+
+
+
+
     }
 
     private void initialize() {
 
-        lvECGSignals = (ListView) findViewById(R.id.lvECGListOfPatient);
-        lvECGSignals.setAdapter(new ArrayAdapter<String>(PatientECGSignalList.this, android.R.layout.simple_list_item_1, ECG_SIGNALS));
-        lvECGSignals.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(PatientECGSignalList.this, GrapViewOfPatient.class);
-                intent.putExtra("index", i);
-                intent.putExtra("class", patient);
-                startActivity(intent);
-            }
-        });
+        String[] ECG_SIGNALS = new String[anomalyList.size()];
+
+        if (anomalyList != null) {
+            for (int i = 0; i < anomalyList.size(); i++)
+                ECG_SIGNALS[i] = Util.dateToString(anomalyList.get(i).getDate());
+
+            lvECGSignals = (ListView) findViewById(R.id.lvECGListOfPatient);
+            lvECGSignals.setAdapter(new ArrayAdapter<String>(PatientECGSignalList.this,
+                    android.R.layout.simple_list_item_1, ECG_SIGNALS));
+            lvECGSignals.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(PatientECGSignalList.this, GrapViewOfPatient.class);
+                    intent.putExtra("anomaly", anomalyList.get(i));
+                    startActivity(intent);
+                }
+            });
+        } else {
+            Toast.makeText(context, "Üzgünüz ama sinyalleri listeleyemiyoruz. Lütfen daha sonra tekrar deneyiniz.", Toast.LENGTH_LONG).show();
+        }
+
+
+
 
     }
 }

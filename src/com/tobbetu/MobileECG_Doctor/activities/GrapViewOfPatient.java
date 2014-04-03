@@ -1,6 +1,7 @@
 package com.tobbetu.MobileECG_Doctor.activities;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import com.pubnub.api.PubnubError;
 import com.pubnub.api.PubnubException;
 import com.shimmerresearch.graph.GraphView;
 import com.tobbetu.MobileECG_Doctor.R;
+import com.tobbetu.MobileECG_Doctor.model.Anomaly;
 import com.tobbetu.MobileECG_Doctor.model.ECGData;
 import com.tobbetu.MobileECG_Doctor.model.Patient;
 import com.tobbetu.MobileECG_Doctor.util.Util;
@@ -25,10 +27,13 @@ import java.util.List;
  */
 public class GrapViewOfPatient extends Activity {
 
-    Patient patient = null;
+    Context context = null;
+    Anomaly anomaly = null;
 
     GraphView graphView;
     TextView tv;
+
+    List<ECGData> ecgDataList;
 
     Handler handler = null;
     Runnable runnable = null;
@@ -37,58 +42,39 @@ public class GrapViewOfPatient extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph_view_of_patient);
+        context= this;
 
-        patient = (Patient) getIntent().getSerializableExtra("class");
+        anomaly = (Anomaly) getIntent().getSerializableExtra("anomaly");
 
         graphView = (GraphView) findViewById(R.id.mGraphView);
         tv = (TextView) findViewById(R.id.tvDeneme);
 
-        tv.setText(patient.getName() + " " + patient.getSurname());
+        tv.setText(anomaly.getPatient().getName() + " " + anomaly.getPatient().getSurname());
 
-        int index = getIntent().getIntExtra("index", -1);
-        final List<ECGData> list;
+        ecgDataList = anomaly.getEcgDataList();
 
-        switch (index) {
-            case 0:
-                list = Util.readFromText(this, "a.txt");
-                break;
-            case 1:
-                list = Util.readFromText(this, "b.txt");
-                break;
-            case 2:
-                list = Util.readFromText(this, "c.txt");
-                break;
-            case 3:
-                list = Util.readFromText(this, "d.txt");
-                break;
-            default:
-                list = null;
-                break;
-        }
-
-
-        if (list != null) {
+        if (ecgDataList != null) {
 
             handler = new Handler();
             runnable = new Runnable() {
                 @Override
                 public void run() {
                     int[] datas = new int[2];
-                    datas[0] = list.get(i).getRAW_ra_ll();
-                    datas[1] = list.get(i).getRAW_la_ll();
+                    datas[0] = ecgDataList.get(i).getRAW_ra_ll();
+                    datas[1] = ecgDataList.get(i).getRAW_la_ll();
                     graphView.setDataWithAdjustment(datas, "Shimmer", "u12");
                     i++;
-                    if (i == 199)
+                    if (i == ecgDataList.size())
                         handler.removeCallbacks(runnable);
                     else
-                        handler.postDelayed(runnable, 5);
+                        handler.postDelayed(runnable, 50);
                 }
             };
 
-           // handler.postDelayed(runnable, 5);
-
+           handler.postDelayed(runnable, 50);
         }
 
+        /*
         Pubnub pubnub = new Pubnub("pub-c-13b31cee-ef79-440f-b46d-e3804f3d5435", "sub-c-3a5a7350-b28d-11e3-b8c3-02ee2ddab7fe");
 
         try {
@@ -152,6 +138,7 @@ public class GrapViewOfPatient extends Activity {
         } catch (PubnubException e) {
             System.out.println(e.toString());
         }
+        */
     }
 
     @Override

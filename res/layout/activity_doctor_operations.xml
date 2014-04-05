@@ -11,13 +11,11 @@
 
         <Button android:layout_width="match_parent" android:layout_height="100dp"
                 android:id="@+id/bShowAllPatients"
-                android:layout_marginBottom="5dp"
                 android:text="Tüm Hastaları Göster"/>
 
 
         <Button android:layout_width="match_parent" android:layout_height="100dp"
                 android:id="@+id/bShowAllEnrolledPatients"
-                android:layout_marginTop="5dp"
                 android:text="Takip Ettiğim Hastaları Göster"/>
 
     </LinearLayout>

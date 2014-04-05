@@ -6,11 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
-import com.parse.Parse;
 import com.parse.PushService;
 import com.tobbetu.MobileECG_Doctor.R;
-import com.tobbetu.MobileECG_Doctor.android_service.MobileECGDoctorService;
 import com.tobbetu.MobileECG_Doctor.model.Doctor;
 
 /**
@@ -29,15 +26,7 @@ public class DoctorOperationsActivity extends Activity implements View.OnClickLi
 
         doctor = (Doctor) getIntent().getSerializableExtra("class");
 
-        PushService.subscribe(getApplicationContext(), "A" + doctor.getId(), LoginActivity.class);
-
-        if (MobileECGDoctorService.fromService) {
-            MobileECGDoctorService.fromService = false;
-
-            //after notification received
-
-            Toast.makeText(context, "Push Notification ile geldin", Toast.LENGTH_LONG).show();
-        }
+        PushService.subscribe(getApplicationContext(), "A" + doctor.getId(), AfterNotification.class);
 
         bShowAllPatients = (Button) findViewById(R.id.bShowAllPatients);
         bShowAllPatients.setOnClickListener(this);

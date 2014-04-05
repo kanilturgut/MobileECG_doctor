@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Gravity;
 import android.view.Menu;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -134,18 +135,21 @@ public class GrapViewOfPatient extends Activity {
 
             if (detectedAnomalies[0]) {
                 TextView textView = new TextView(context);
+                textView.setGravity(Gravity.CENTER_HORIZONTAL);
                 textView.setTextSize(16);
                 textView.setText("PQ arası anomali");
                 llDetectedAnomalies.addView(textView);
             }
             if (detectedAnomalies[1]) {
                 TextView textView = new TextView(context);
+                textView.setGravity(Gravity.CENTER_HORIZONTAL);
                 textView.setTextSize(16);
                 textView.setText("QRS arası anomali");
                 llDetectedAnomalies.addView(textView);
             }
             if (detectedAnomalies[2]) {
                 TextView textView = new TextView(context);
+                textView.setGravity(Gravity.CENTER_HORIZONTAL);
                 textView.setTextSize(16);
                 textView.setText("QT arası anomali");
                 llDetectedAnomalies.addView(textView);
@@ -154,10 +158,5 @@ public class GrapViewOfPatient extends Activity {
         } else {
             Toast.makeText(context, "Bir sorun oluştu", Toast.LENGTH_LONG).show();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        return super.onCreateOptionsMenu(menu);
     }
 }

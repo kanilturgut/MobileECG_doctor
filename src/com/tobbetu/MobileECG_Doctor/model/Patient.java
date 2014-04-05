@@ -2,6 +2,7 @@ package com.tobbetu.MobileECG_Doctor.model;
 
 import android.util.Log;
 import com.tobbetu.MobileECG_Doctor.backend.Requests;
+import com.tobbetu.MobileECG_Doctor.util.HttpURL;
 import com.tobbetu.MobileECG_Doctor.util.Util;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
@@ -220,6 +221,18 @@ public class Patient implements Serializable {
 
     public void setBmi(double bmi) {
         this.bmi = bmi;
+    }
+
+
+    public static Patient getPatientWithId(String patientId) throws IOException, JSONException {
+
+        HttpResponse post = Requests.post(HttpURL.OP_GET_PATIENT_WITH_ID, patientId);
+
+        if (Requests.checkStatusCode(post, HttpStatus.SC_OK))
+            return Patient.fromJSON(new JSONObject(Requests.readResponse(post)));
+        else
+            return null;
+
     }
 
     public static List<Patient> getList(String url) throws IOException, JSONException {

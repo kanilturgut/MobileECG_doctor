@@ -77,21 +77,6 @@ public class Anomaly implements Serializable{
             return null;
     }
 
-    public static List<Anomaly> getPatientAnomaliesBetweenGivenDates(Date begin, Date end, String patientId) throws JSONException, IOException {
-
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("beginningDate", begin.getTime());
-        jsonObject.put("endDate", end.getTime());
-        jsonObject.put("patientID", patientId);
-
-        HttpResponse response = Requests.post(HttpURL.OP_GET_ECG_DATAS_BETWEEN_DATES, jsonObject.toString());
-
-        if (Requests.checkStatusCode(response, HttpStatus.SC_OK))
-            return Anomaly.parseList(Requests.readResponse(response));
-        else
-            return null;
-    }
-
     public static List<Anomaly> getPatientAnomalies(String patientId) throws IOException, JSONException {
         HttpResponse response = Requests.post(HttpURL.OP_GET_PATIENT_ANOMALIES, patientId);
 

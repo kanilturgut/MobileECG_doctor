@@ -82,13 +82,20 @@
                   android:screenOrientation="portrait"/>
 
         <activity android:name=".activities.DatePickerActivity"
-                android:screenOrientation="portrait"
-                android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
 
         <activity android:name=".activities.PastECGDatas"
                   android:screenOrientation="portrait"
                   android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
-        <activity android:name=".activities.LiveECG"/>
+
+        <activity android:name=".activities.LiveECG"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
+
+        <activity android:name=".activities.AfterNotification"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
 
         <receiver
                 android:name=".receiver.GCMReceiver">

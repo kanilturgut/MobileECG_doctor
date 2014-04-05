@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 import com.tobbetu.MobileECG_Doctor.activities.DoctorOperationsActivity;
 import com.tobbetu.MobileECG_Doctor.android_service.MobileECGDoctorService;
@@ -60,9 +61,15 @@ public class LoginTask extends AsyncTask<String, Void, Doctor>{
             progressDialog.dismiss();
 
         if (doctor != null) {
-            Intent intent = new Intent(context, DoctorOperationsActivity.class);
-            intent.putExtra("class", doctor);
-            context.startActivity(intent);
+            if (!MobileECGDoctorService.fromService) {
+                Intent intent = new Intent(context, DoctorOperationsActivity.class);
+                intent.putExtra("class", doctor);
+                context.startActivity(intent);
+            } else {
+                Log.w("LoginTask", "Doktor login oldu");
+                Toast.makeText(context, "Başarı ile giriş yaptınız", Toast.LENGTH_SHORT).show();
+            }
+
         } else {
             Toast.makeText(context, "Login FAILED", Toast.LENGTH_LONG).show();
         }

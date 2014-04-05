@@ -184,8 +184,8 @@ public class PatientDetailsActivity extends Activity {
         bGoPatientECGSignalList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(PatientDetailsActivity.this, PatientECGSignalList.class);
-                i.putExtra("class", patient);
+                Intent i = new Intent(PatientDetailsActivity.this, LiveECG.class);
+                i.putExtra("patient", patient);
                 startActivity(i);
             }
         });

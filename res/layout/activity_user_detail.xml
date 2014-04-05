@@ -215,7 +215,7 @@
         </LinearLayout>
 
         <Button android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:text="ECG Sinyalleri"
+                android:text="Hastanın Anlık ECG Sinyalleri"
                 android:id="@+id/bGoPatientECGSignalList"
                 android:layout_marginTop="20dp"/>
 

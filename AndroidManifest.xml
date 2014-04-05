@@ -88,6 +88,7 @@
         <activity android:name=".activities.PastECGDatas"
                   android:screenOrientation="portrait"
                   android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
+        <activity android:name=".activities.LiveECG"/>
 
         <receiver
                 android:name=".receiver.GCMReceiver">

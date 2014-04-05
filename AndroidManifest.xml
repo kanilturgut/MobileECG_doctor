@@ -72,7 +72,8 @@
                   android:screenOrientation="portrait"/>
 
         <activity android:name=".activities.DoctorOperationsActivity"
-                  android:screenOrientation="portrait"/>
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"/>
 
         <activity android:name=".activities.ShowEnrolledPatientsListActivity"
                   android:screenOrientation="portrait"/>

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import com.parse.PushService;
 import com.tobbetu.MobileECG_Doctor.R;
 import com.tobbetu.MobileECG_Doctor.model.Doctor;
@@ -25,6 +26,9 @@ public class DoctorOperationsActivity extends Activity implements View.OnClickLi
         context = this;
 
         doctor = (Doctor) getIntent().getSerializableExtra("class");
+
+        TextView tvDoctorName = (TextView) findViewById(R.id.tvDoctorName);
+        tvDoctorName.setText("Dr. " + doctor.getName() + " " + doctor.getSurname() + " hoşgeldiniz");
 
         PushService.subscribe(getApplicationContext(), "A" + doctor.getId(), AfterNotification.class);
 

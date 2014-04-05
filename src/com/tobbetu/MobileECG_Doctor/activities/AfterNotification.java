@@ -3,10 +3,13 @@ package com.tobbetu.MobileECG_Doctor.activities;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +38,7 @@ public class AfterNotification extends Activity {
     GraphView graphView;
     TextView tv;
     LinearLayout llDetectedAnomalies;
+    Button bMap;
 
     Handler handler = null;
     Runnable runnable = null;
@@ -45,7 +49,7 @@ public class AfterNotification extends Activity {
         setContentView(R.layout.activity_after_notification);
         context = this;
 
-        new AutoLogin().execute("doctor", "pass", "asdsad13");
+        new AutoLogin().execute("kanilturgut", "123", "asdsad13");
 
     }
 
@@ -231,5 +235,19 @@ public class AfterNotification extends Activity {
         } else {
             Toast.makeText(context, "Bir sorun oluştu", Toast.LENGTH_LONG).show();
         }
+
+        bMap = (Button) findViewById(R.id.showOnMap);
+        bMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                int size = (anomaly.getEcgDataList().size() / 2);
+
+                Intent intent = new Intent(context, MapActivity.class);
+                intent.putExtra("latitude", anomaly.getEcgDataList().get(size).getLatitude());
+                intent.putExtra("longitude", anomaly.getEcgDataList().get(size).getLongitude());
+                startActivity(intent);
+            }
+        });
     }
 }

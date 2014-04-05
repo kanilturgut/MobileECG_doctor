@@ -36,7 +36,7 @@ public class RegisterActivity extends Activity {
                     doctor.setSurname(etDocSurname.getText().toString().trim());
                     doctor.setUsername(etDocUsername.getText().toString().trim());
                     doctor.setPassword(etDocPassword.getText().toString().trim());
-                    doctor.setDeviceID(LoginActivity.regid);
+                    doctor.setDeviceID("sdasdsada");
 
                     new RegisterTask(RegisterActivity.this).execute(doctor);
                 }

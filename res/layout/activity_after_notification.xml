@@ -25,6 +25,16 @@
             android:layout_above="@+id/svOfDetectedAnomalies"
             android:id="@+id/mGraphView"/>
 
+    <Button
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:drawableTop="@drawable/ic_action_place"
+            android:background="@android:color/transparent"
+            android:layout_below="@+id/llUser"
+            android:id="@+id/showOnMap"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
+
     <ScrollView android:layout_width="match_parent" android:layout_height="60dp"
                 android:layout_alignParentBottom="true"
                 android:id="@+id/svOfDetectedAnomalies">
@@ -37,5 +47,6 @@
         </LinearLayout>
 
     </ScrollView>
+
 
 </RelativeLayout>

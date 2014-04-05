@@ -27,7 +27,7 @@ public class Register {
             jsonObject.put("surname", doctor.getSurname());
             jsonObject.put("username", doctor.getUsername());
             jsonObject.put("password", doctor.getPassword());
-            jsonObject.put("deviceID", doctor.getDeviceID());
+            jsonObject.put("deviceID", "sdasdsada");
 
             registerInfo = jsonObject.toString();
         } catch (JSONException e) {

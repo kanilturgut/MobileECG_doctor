@@ -223,7 +223,6 @@ public class Patient implements Serializable {
         this.bmi = bmi;
     }
 
-
     public static Patient getPatientWithId(String patientId) throws IOException, JSONException {
 
         HttpResponse post = Requests.post(HttpURL.OP_GET_PATIENT_WITH_ID, patientId);
@@ -287,6 +286,37 @@ public class Patient implements Serializable {
         patient.setBmi(obj.getDouble("bmi"));
 
         return patient;
+    }
+
+    public static String toJSON(Patient patient) throws JSONException {
+
+        JSONObject newObj = new JSONObject();
+
+        newObj.put("birthday", patient.getBirthday().getTime());
+        newObj.put("id", patient.getId());
+        newObj.put("name", patient.getName());
+        newObj.put("surname", patient.getSurname());
+        newObj.put("username", patient.getUsername());
+        newObj.put("password", patient.getPassword());
+        newObj.put("phoneNumber", patient.getPhoneNumber());
+        newObj.put("address", patient.getAddress());
+        newObj.put("deviceID", patient.getDeviceID());
+
+        newObj.put("sex", patient.getSex());
+        newObj.put("weight", patient.getWeight());
+        newObj.put("height", patient.getHeight());
+        newObj.put("activityFrequency", patient.getActivityFrequency());
+        newObj.put("smokingFrequency", patient.getSmokingFrequency());
+        newObj.put("alcoholUsageFrequency", patient.getAlcoholUsageFrequency());
+        newObj.put("kolesterolLDL", patient.getKolesterolLDL());
+        newObj.put("kolesterolHDL", patient.getKolesterolHDL());
+
+        newObj.put("hasHypertension", patient.isHasHypertension());
+        newObj.put("hasDiabetes", patient.isHasDiabetes());
+        newObj.put("bmi", patient.getBmi());
+
+        return newObj.toString();
+
     }
 }
 

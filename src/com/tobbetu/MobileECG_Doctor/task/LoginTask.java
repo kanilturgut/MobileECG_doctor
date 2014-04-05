@@ -72,6 +72,9 @@ public class LoginTask extends AsyncTask<String, Void, Doctor>{
     protected void onCancelled() {
         super.onCancelled();
 
+        if (progressDialog != null)
+            progressDialog.dismiss();
+
         Toast.makeText(context, "Login FAILED", Toast.LENGTH_LONG).show();
     }
 }

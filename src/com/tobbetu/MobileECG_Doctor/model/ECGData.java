@@ -1,10 +1,19 @@
 package com.tobbetu.MobileECG_Doctor.model;
 
 import android.util.Log;
+import com.tobbetu.MobileECG_Doctor.backend.Requests;
+import com.tobbetu.MobileECG_Doctor.util.HttpURL;
 import com.tobbetu.MobileECG_Doctor.util.Util;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by kanilturgut on 18/03/14.
@@ -114,6 +123,45 @@ public class ECGData {
         ecgData.setLongitude(object.optDouble("longitude"));
 
         return ecgData;
+    }
+
+    public static List<ECGData> getQueriedDatas(Date begin, Date end, String patientId) throws JSONException, IOException {
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("beginningDate", begin.getTime());
+        jsonObject.put("endDate", end.getTime());
+        jsonObject.put("patientID", patientId);
+
+        HttpResponse response = Requests.post(HttpURL.OP_GET_ECG_DATAS_BETWEEN_DATES, jsonObject.toString());
+
+        if (Requests.checkStatusCode(response, HttpStatus.SC_OK))
+            return ECGData.parseList(Requests.readResponse(response));
+        else
+            return null;
+
+    }
+
+    private static List<ECGData> parseList(String response)  {
+        List<ECGData> ecgDataList = new LinkedList<ECGData>();
+
+        JSONArray jsonArray = null;
+        try {
+            jsonArray = new JSONArray(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = null;
+            try {
+                jsonObject = jsonArray.getJSONObject(i);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            ecgDataList.add(ECGData.fromJSON(jsonObject));
+        }
+
+        return ecgDataList;
     }
 
 }

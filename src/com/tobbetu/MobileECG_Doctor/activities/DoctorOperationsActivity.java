@@ -21,7 +21,6 @@ public class DoctorOperationsActivity extends Activity implements View.OnClickLi
     Context context = null;
     Button bShowAllPatients, bShowEnrolledPatients;
     public static Doctor doctor = null;
-    boolean fromService;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +33,8 @@ public class DoctorOperationsActivity extends Activity implements View.OnClickLi
 
         if (MobileECGDoctorService.fromService) {
             MobileECGDoctorService.fromService = false;
+
+            //after notification received
 
             Toast.makeText(context, "Push Notification ile geldin", Toast.LENGTH_LONG).show();
         }

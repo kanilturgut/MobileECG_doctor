@@ -1,6 +1,7 @@
 package com.tobbetu.MobileECG_Doctor.activities;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +15,7 @@ import com.tobbetu.MobileECG_Doctor.model.Patient;
 public class HastaActivity extends Activity {
 
     Patient patient = null;
-    Button bUserInfo, bUserECG;
+    Button bUserInfo, bUserECG, bUserECGWithDates;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +33,7 @@ public class HastaActivity extends Activity {
 
         bUserECG = (Button) findViewById(R.id.bUserECG);
         bUserInfo = (Button) findViewById(R.id.bUserInfo);
+        bUserECGWithDates = (Button) findViewById(R.id.bUserECGWithDates);
 
         bUserECG.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +48,15 @@ public class HastaActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(HastaActivity.this, PatientDetailsActivity.class);
+                i.putExtra("class", patient);
+                startActivity(i);
+            }
+        });
+
+        bUserECGWithDates.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(HastaActivity.this, DatePickerActivity.class);
                 i.putExtra("class", patient);
                 startActivity(i);
             }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:background="#DDDDDD"
+                android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:layout_width="match_parent" android:layout_height="40dp"
+            android:id="@+id/llUser">
+
+        <TextView
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/tvGraphViewPatientName"
+                android:layout_centerInParent="true"
+                android:textSize="16sp"
+                android:textStyle="bold"/>
+
+    </RelativeLayout>
+
+
+    <com.shimmerresearch.graph.GraphView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/llUser"
+            android:layout_above="@+id/rlHeader"
+            android:id="@+id/mGraphView"/>
+
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:id="@+id/rlHeader"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="5dp">
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:layout_centerVertical="true"
+                  android:layout_alignParentLeft="true"
+                  android:textSize="15sp"
+                  android:id="@+id/tvGraphBeginningTime"/>
+
+
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:layout_centerVertical="true"
+                  android:layout_alignParentRight="true"
+                  android:textSize="15sp"
+                  android:id="@+id/tvGraphEndTime"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

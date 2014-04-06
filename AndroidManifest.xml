@@ -33,7 +33,7 @@
             android:required="true"/>
 
     <application android:label="@string/app_name"
-                 android:icon="@drawable/ic_launcher"
+                 android:icon="@drawable/icon"
                  android:theme="@android:style/Theme.Holo.Light.DarkActionBar">
 
         <activity android:name=".activities.SplashActivity"
@@ -97,7 +97,10 @@
         <activity android:name=".activities.AfterNotification"
                   android:screenOrientation="portrait"
                   android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
-        <activity android:name=".activities.DefineRule"/>
+
+        <activity android:name=".activities.DefineRule"
+                  android:screenOrientation="portrait"
+                  android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
 
         <receiver
                 android:name=".receiver.GCMReceiver">

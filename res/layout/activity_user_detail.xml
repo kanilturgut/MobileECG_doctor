@@ -219,6 +219,9 @@
                 android:id="@+id/bGoPatientECGSignalList"
                 android:layout_marginTop="20dp"/>
 
+        <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:id="@+id/bDefineRule"
+                android:text="Hastaya Özel Kural Tanımla"/>
 
     </LinearLayout>
 

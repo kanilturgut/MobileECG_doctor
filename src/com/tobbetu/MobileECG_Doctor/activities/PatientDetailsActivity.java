@@ -29,7 +29,7 @@ public class PatientDetailsActivity extends Activity {
             tvHastaBMI, tvHastaAktivite, tvHastaSigara, tvHastaAlkol, tvHastaLDL, tvHastaHDL, tvHastaTansiyon, tvHastaSeker,
             tvFollowing;
 
-    Button bGoPatientECGSignalList, bFollow;
+    Button bGoPatientECGSignalList, bFollow, bDefineRule;
     Patient patient = null;
 
     public void onCreate(Bundle savedInstanceState) {
@@ -215,6 +215,16 @@ public class PatientDetailsActivity extends Activity {
                 Intent i = new Intent(PatientDetailsActivity.this, LiveECG.class);
                 i.putExtra("patient", patient);
                 startActivity(i);
+            }
+        });
+
+        bDefineRule = (Button) findViewById(R.id.bDefineRule);
+        bDefineRule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, DefineRule.class);
+                intent.putExtra("patient", patient);
+                startActivity(intent);
             }
         });
     }

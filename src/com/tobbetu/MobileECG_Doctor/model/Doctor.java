@@ -1,7 +1,9 @@
 package com.tobbetu.MobileECG_Doctor.model;
 
 import com.tobbetu.MobileECG_Doctor.backend.Requests;
+import com.tobbetu.MobileECG_Doctor.util.HttpURL;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -88,4 +90,15 @@ public class Doctor implements Serializable {
 
         return doctor;
     }
+
+    public static boolean changeRule(String rules) throws IOException {
+        HttpResponse post = Requests.post(HttpURL.OP_DEFINE_RULES, rules);
+
+        if (Requests.checkStatusCode(post, HttpStatus.SC_OK))
+            return true;
+        else
+            return false;
+
+    }
+
 }

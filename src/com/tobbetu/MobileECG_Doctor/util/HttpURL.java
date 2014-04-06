@@ -14,4 +14,5 @@ public class HttpURL {
     public static final String OP_GET_PATIENT_ANOMALIES = "/patient/patientAnomalies";
     public static final String OP_GET_PATIENT_ANOMALY_WITHID = "/patient/patientAnomalyWithId";
     public static final String OP_GET_ECG_DATAS_BETWEEN_DATES = "/ecgdata/raw/bwdates";
+    public static final String OP_DEFINE_RULES = "/doctor/defineRule";
 }

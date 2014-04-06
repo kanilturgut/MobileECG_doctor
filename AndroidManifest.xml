@@ -97,6 +97,7 @@
         <activity android:name=".activities.AfterNotification"
                   android:screenOrientation="portrait"
                   android:theme="@android:style/Theme.Holo.Light.NoActionBar"/>
+        <activity android:name=".activities.DefineRule"/>
 
         <receiver
                 android:name=".receiver.GCMReceiver">

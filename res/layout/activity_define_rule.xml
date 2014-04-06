@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:orientation="vertical"
+                  android:layout_centerInParent="true">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:weightSum="10">
+
+            <CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/cbPQ"
+                      android:layout_weight="2"
+                      android:layout_margin="5dp"/>
+
+            <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_margin="5dp"
+                      android:id="@+id/etPQMin"
+                      android:enabled="false"
+                      android:layout_weight="4"
+                      android:hint="PQ Interval Min"/>
+
+            <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_margin="5dp"
+                      android:id="@+id/etPQMax"
+                      android:layout_weight="4"
+                      android:enabled="false"
+                      android:hint="PQ Interval Max"/>
+
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:weightSum="10">
+
+            <CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/cbQRS"
+                      android:layout_weight="2"
+                      android:layout_margin="5dp"/>
+
+            <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_margin="5dp"
+                      android:id="@+id/etQRSMin"
+                      android:enabled="false"
+                      android:layout_weight="4"
+                      android:hint="QRS Interval Min"/>
+
+            <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_margin="5dp"
+                      android:id="@+id/etQRSMax"
+                      android:layout_weight="4"
+                      android:enabled="false"
+                      android:hint="QRS Interval Max"/>
+
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:weightSum="10">
+
+            <CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:id="@+id/cbQT"
+                      android:layout_weight="2"
+                      android:layout_margin="5dp"/>
+
+            <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_margin="5dp"
+                      android:id="@+id/etQTMin"
+                      android:enabled="false"
+                      android:layout_weight="4"
+                      android:hint="QT Interval Min"/>
+
+            <EditText android:layout_width="wrap_content" android:layout_height="wrap_content"
+                      android:layout_margin="5dp"
+                      android:id="@+id/etQTMax"
+                      android:layout_weight="4"
+                      android:enabled="false"
+                      android:hint="QT Interval Max"/>
+
+        </LinearLayout>
+
+
+        <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:id="@+id/bSaveRules"
+                android:text="Kaydet"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -30,7 +30,7 @@ public class DefineRule extends Activity implements CompoundButton.OnCheckedChan
 
     ProgressDialog progressDialog = null;
 
-    int success = 0;
+    static int success = 0;
     int expected = 0;
 
     final int INTERVAL_TYPE_PQ = 0;
@@ -68,16 +68,22 @@ public class DefineRule extends Activity implements CompoundButton.OnCheckedChan
                 progressDialog = ProgressDialog.show(context, "Lütfen Bekleyiniz", "Tanımladığınız yeni kurallar sisteme kaydediliyor", false, false);
 
                 if (cbPQ.isChecked()) {
-                    expected++;
-                    new PQ().execute();
+                    if (checkForMinMax(etPQMin, etPQMax)) {
+                        expected++;
+                        new PQ().execute();
+                    }
                 }
                 if (cbQRS.isChecked()) {
-                    expected++;
-                    new QRS().execute();
+                    if (checkForMinMax(etQRSMin, etQRSMax)) {
+                        expected++;
+                        new QRS().execute();
+                    }
                 }
                 if (cbQT.isChecked()) {
-                    expected++;
-                    new QT().execute();
+                    if (checkForMinMax(etQTMin, etQTMax)) {
+                        expected++;
+                        new QT().execute();
+                    }
                 }
             }
         });
@@ -92,7 +98,7 @@ public class DefineRule extends Activity implements CompoundButton.OnCheckedChan
         } else if (compoundButton.getId() == R.id.cbQRS) {
             etQRSMin.setEnabled(b);
             etQRSMax.setEnabled(b);
-        }else {
+        } else {
             etQTMin.setEnabled(b);
             etQTMax.setEnabled(b);
         }
@@ -107,10 +113,12 @@ public class DefineRule extends Activity implements CompoundButton.OnCheckedChan
             JSONObject jsonObject = new JSONObject();
 
             try {
-                jsonObject.put("patient", Patient.toJSON(patient));
+                jsonObject.put("patient", patient.getId());
                 jsonObject.put("intervalType", INTERVAL_TYPE_PQ);
-                jsonObject.put("intervalMin", etPQMin.getText().toString());
-                jsonObject.put("intervalMax", etPQMax.getText().toString());
+                if (!etPQMin.getText().toString().equals(""))
+                    jsonObject.put("intervalMin", Integer.parseInt(etPQMin.getText().toString()));
+                if (!etPQMax.getText().toString().equals(""))
+                    jsonObject.put("intervalMax", Integer.parseInt(etPQMax.getText().toString()));
 
                 return Doctor.changeRule(jsonObject.toString());
 
@@ -153,10 +161,12 @@ public class DefineRule extends Activity implements CompoundButton.OnCheckedChan
             JSONObject jsonObject = new JSONObject();
 
             try {
-                jsonObject.put("patient", Patient.toJSON(patient));
+                jsonObject.put("patient", patient.getId());
                 jsonObject.put("intervalType", INTERVAL_TYPE_QRS);
-                jsonObject.put("intervalMin", etQRSMin.getText().toString());
-                jsonObject.put("intervalMax", etQRSMax.getText().toString());
+                if (!etQRSMin.getText().toString().equals(""))
+                    jsonObject.put("intervalMin", Integer.parseInt(etQRSMin.getText().toString()));
+                if (!etQRSMax.getText().toString().equals(""))
+                    jsonObject.put("intervalMax", Integer.parseInt(etQRSMax.getText().toString()));
 
                 return Doctor.changeRule(jsonObject.toString());
 
@@ -198,10 +208,12 @@ public class DefineRule extends Activity implements CompoundButton.OnCheckedChan
             JSONObject jsonObject = new JSONObject();
 
             try {
-                jsonObject.put("patient", Patient.toJSON(patient));
+                jsonObject.put("patient", patient.getId());
                 jsonObject.put("intervalType", INTERVAL_TYPE_QT);
-                jsonObject.put("intervalMin", etQTMin.getText().toString());
-                jsonObject.put("intervalMax", etQTMax.getText().toString());
+                if (!etQTMin.getText().toString().equals(""))
+                    jsonObject.put("intervalMin", Integer.parseInt(etQTMin.getText().toString()));
+                if (!etQTMax.getText().toString().equals(""))
+                    jsonObject.put("intervalMax", Integer.parseInt(etQTMax.getText().toString()));
 
                 return Doctor.changeRule(jsonObject.toString());
 
@@ -246,5 +258,12 @@ public class DefineRule extends Activity implements CompoundButton.OnCheckedChan
 
     }
 
+    boolean checkForMinMax(EditText min, EditText max) {
+
+        if (min.getText().toString().equals("") && max.getText().toString().equals(""))
+            return false;
+        else
+            return true;
+    }
 
 }

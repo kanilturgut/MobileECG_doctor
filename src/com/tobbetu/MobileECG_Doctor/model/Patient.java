@@ -288,7 +288,7 @@ public class Patient implements Serializable {
         return patient;
     }
 
-    public static String toJSON(Patient patient) throws JSONException {
+    public static JSONObject toJSON(Patient patient) throws JSONException {
 
         JSONObject newObj = new JSONObject();
 
@@ -315,7 +315,7 @@ public class Patient implements Serializable {
         newObj.put("hasDiabetes", patient.isHasDiabetes());
         newObj.put("bmi", patient.getBmi());
 
-        return newObj.toString();
+        return newObj;
 
     }
 }

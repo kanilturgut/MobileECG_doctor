@@ -240,6 +240,8 @@ public class DefineRule extends Activity implements CompoundButton.OnCheckedChan
 
         if (expected == success) {
             progressDialog.dismiss();
+
+            Toast.makeText(context, "Tanımladığınız kurallar sisteme yüklenmiştir", Toast.LENGTH_LONG).show();
         }
 
     }

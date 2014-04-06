@@ -9,7 +9,6 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.tobbetu.MobileECG_Doctor.R;
-import com.tobbetu.MobileECG_Doctor.model.ECGData;
 
 /**
  * Created by kanilturgut on 02/04/14, 20:41.

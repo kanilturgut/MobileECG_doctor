@@ -28,8 +28,7 @@
     <Button
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:drawableTop="@drawable/ic_action_place"
-            android:background="@android:color/transparent"
+            android:background="@drawable/ic_action_location_found"
             android:layout_below="@+id/llUser"
             android:id="@+id/showOnMap"
             android:layout_alignParentRight="true"

@@ -29,7 +29,7 @@ import java.io.IOException;
 /**
  * Created by kanilturgut on 05/04/14, 14:22.
  */
-public class AfterNotification extends Activity {
+public class AfterNotification extends Activity implements View.OnClickListener {
 
     Context context = null;
     Patient patient = null;
@@ -39,6 +39,8 @@ public class AfterNotification extends Activity {
     TextView tv;
     LinearLayout llDetectedAnomalies;
     Button bMap;
+    Button playButton = null;
+    Button pauseButton = null;
 
     Handler handler = null;
     Runnable runnable = null;
@@ -51,6 +53,22 @@ public class AfterNotification extends Activity {
 
         new AutoLogin().execute("kanilturgut", "123", "asdsad13");
 
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.bPlay) {
+            startPainting();
+
+            playButton.setVisibility(Button.INVISIBLE);
+            pauseButton.setVisibility(Button.VISIBLE);
+
+        } else {
+            handler.removeCallbacks(runnable);
+
+            playButton.setVisibility(Button.VISIBLE);
+            pauseButton.setVisibility(Button.INVISIBLE);
+        }
     }
 
     class AutoLogin extends AsyncTask<String, Void, Doctor> {
@@ -187,6 +205,28 @@ public class AfterNotification extends Activity {
 
         llDetectedAnomalies = (LinearLayout) findViewById(R.id.llDetectedAnomalies);
 
+        playButton = (Button) findViewById(R.id.bPlay);
+        playButton.setOnClickListener(this);
+
+        pauseButton = (Button) findViewById(R.id.bPause);
+        pauseButton.setOnClickListener(this);
+
+        bMap = (Button) findViewById(R.id.showOnMap);
+        bMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                int size = (anomaly.getEcgDataList().size() / 2);
+
+                Intent intent = new Intent(context, MapActivity.class);
+                intent.putExtra("latitude", anomaly.getEcgDataList().get(size).getLatitude());
+                intent.putExtra("longitude", anomaly.getEcgDataList().get(size).getLongitude());
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void startPainting() {
         if (anomaly.getEcgDataList() != null && anomaly.getEcgDataList().size() != 0) {
 
             handler = new Handler();
@@ -235,19 +275,5 @@ public class AfterNotification extends Activity {
         } else {
             Toast.makeText(context, "Bir sorun oluştu", Toast.LENGTH_LONG).show();
         }
-
-        bMap = (Button) findViewById(R.id.showOnMap);
-        bMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                int size = (anomaly.getEcgDataList().size() / 2);
-
-                Intent intent = new Intent(context, MapActivity.class);
-                intent.putExtra("latitude", anomaly.getEcgDataList().get(size).getLatitude());
-                intent.putExtra("longitude", anomaly.getEcgDataList().get(size).getLongitude());
-                startActivity(intent);
-            }
-        });
     }
 }

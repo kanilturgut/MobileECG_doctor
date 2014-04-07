@@ -6,6 +6,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.shimmerresearch.graph.GraphView;
@@ -21,7 +23,7 @@ import java.util.List;
 /**
  * Created by kanilturgut on 04/04/14, 21:52.
  */
-public class PastECGDatas extends Activity {
+public class PastECGDatas extends Activity implements View.OnClickListener {
 
     Context context = null;
 
@@ -32,6 +34,9 @@ public class PastECGDatas extends Activity {
 
     Handler handler = null;
     Runnable runnable = null;
+
+    Button playButton = null;
+    Button pauseButton = null;
 
     List<ECGData> ecgDataList = null;
     int index = 0;
@@ -112,6 +117,34 @@ public class PastECGDatas extends Activity {
         tvPatientName.setText(patient.getName() + " " + patient.getSurname());
         tvBeginningDate.setText(s);
         tvEndDate.setText(e);
+
+        playButton = (Button) findViewById(R.id.bPlay);
+        playButton.setOnClickListener(this);
+
+        pauseButton = (Button) findViewById(R.id.bPause);
+        pauseButton.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        if (view.getId() == R.id.bPlay) {
+            startPainting();
+
+            playButton.setVisibility(Button.INVISIBLE);
+            pauseButton.setVisibility(Button.VISIBLE);
+
+        } else {
+            handler.removeCallbacks(runnable);
+
+            playButton.setVisibility(Button.VISIBLE);
+            pauseButton.setVisibility(Button.INVISIBLE);
+        }
+
+    }
+
+    private void startPainting() {
 
         handler = new Handler();
         runnable = new Runnable() {

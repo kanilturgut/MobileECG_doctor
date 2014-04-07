@@ -8,10 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
 import android.view.Menu;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.view.View;
+import android.widget.*;
 import com.shimmerresearch.graph.GraphView;
 import com.tobbetu.MobileECG_Doctor.R;
 import com.tobbetu.MobileECG_Doctor.model.Anomaly;
@@ -25,7 +23,7 @@ import java.util.List;
 /**
  * Created by kanilturgut on 16/03/14
  */
-public class GrapViewOfPatient extends Activity {
+public class GrapViewOfPatient extends Activity implements View.OnClickListener {
 
     Context context = null;
     Anomaly anomaly = null;
@@ -34,6 +32,8 @@ public class GrapViewOfPatient extends Activity {
     GraphView graphView;
     TextView tv;
     LinearLayout llDetectedAnomalies;
+    Button playButton = null;
+    Button pauseButton = null;
 
     Handler handler = null;
     Runnable runnable = null;
@@ -110,6 +110,33 @@ public class GrapViewOfPatient extends Activity {
 
         llDetectedAnomalies = (LinearLayout) findViewById(R.id.llDetectedAnomalies);
 
+        playButton = (Button) findViewById(R.id.bPlay);
+        playButton.setOnClickListener(this);
+
+        pauseButton = (Button) findViewById(R.id.bPause);
+        pauseButton.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        if (view.getId() == R.id.bPlay) {
+            startPainting();
+
+            playButton.setVisibility(Button.INVISIBLE);
+            pauseButton.setVisibility(Button.VISIBLE);
+
+        } else {
+            handler.removeCallbacks(runnable);
+
+            playButton.setVisibility(Button.VISIBLE);
+            pauseButton.setVisibility(Button.INVISIBLE);
+        }
+
+    }
+
+    void startPainting() {
         if (anomaly.getEcgDataList() != null && anomaly.getEcgDataList().size() != 0) {
 
             handler = new Handler();

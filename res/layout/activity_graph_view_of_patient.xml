@@ -25,6 +25,16 @@
             android:layout_above="@+id/svOfDetectedAnomalies"
             android:id="@+id/mGraphView"/>
 
+    <Button android:layout_width="50dp" android:layout_height="50dp"
+            android:background="@drawable/ic_action_play" android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/bPlay"/>
+    <Button android:layout_width="50dp" android:layout_height="50dp"
+            android:background="@drawable/ic_action_pause" android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible"
+            android:id="@+id/bPause"/>
+
     <ScrollView android:layout_width="match_parent" android:layout_height="60dp"
                 android:layout_alignParentBottom="true"
                 android:id="@+id/svOfDetectedAnomalies">

@@ -27,6 +27,17 @@
             android:layout_above="@+id/rlHeader"
             android:id="@+id/mGraphView"/>
 
+    <Button android:layout_width="50dp" android:layout_height="50dp"
+            android:background="@drawable/ic_action_play" android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/bPlay"/>
+    <Button android:layout_width="50dp" android:layout_height="50dp"
+            android:background="@drawable/ic_action_pause" android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:visibility="invisible"
+            android:id="@+id/bPause"/>
+
+
     <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:id="@+id/rlHeader"
                     android:layout_alignParentBottom="true"

@@ -1,229 +1,234 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                  android:orientation="horizontal"
-                  android:layout_alignParentTop="true"
-                  android:layout_margin="20dp"
-                  android:id="@+id/llUserImage">
+    <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
 
-        <ImageView android:layout_width="72dp" android:layout_height="72dp"
-                   android:src="@drawable/user" android:layout_margin="5dp"
-                   android:layout_gravity="center"/>
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                      android:orientation="horizontal"
+                      android:layout_alignParentTop="true"
+                      android:layout_margin="20dp"
+                      android:id="@+id/llUserImage">
+
+            <ImageView android:layout_width="72dp" android:layout_height="72dp"
+                       android:src="@drawable/user" android:layout_margin="5dp"
+                       android:layout_gravity="center"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="vertical"
+                          android:layout_marginLeft="20dp">
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tvPatientName"
+                          android:textStyle="bold"/>
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tvPatientSex"/>
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tvPatientBoyKilo"/>
+
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tvPatientBMI"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                       android:orientation="vertical"
-                      android:layout_marginLeft="20dp">
+                      android:layout_below="@+id/llUserImage"
+                      android:layout_margin="20dp">
 
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:id="@+id/tvPatientName"
-                      android:textStyle="bold"/>
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
 
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:id="@+id/tvPatientSex"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:text="Hasta Bilgileri"
+                          android:id="@+id/tvHeader"
+                          android:textSize="20sp" android:layout_centerVertical="true"
+                          android:layout_alignParentLeft="true"
+                          android:layout_alignParentStart="true"/>
+                <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:id="@+id/bFollow"
+                        android:layout_alignParentRight="true"
+                        android:drawableLeft="@drawable/ic_action_add_person"
+                        android:text="Takip Et"/>
 
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:id="@+id/tvPatientBoyKilo"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                          android:id="@+id/tvFollowing"
+                          android:textSize="20sp"
+                          android:text="Takip Ediliyor" android:layout_centerVertical="true"
+                          android:layout_alignParentRight="true" android:layout_alignParentEnd="true"/>
 
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:id="@+id/tvPatientBMI"/>
+            </RelativeLayout>
+
+            <View android:layout_width="match_parent" android:layout_height="1dp"
+                  android:background="#000000"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:layout_marginTop="10dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textSize="16sp"
+                          android:text="Doğum Tarihi:"/>
+
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textSize="16sp"
+                          android:id="@+id/tvPatientBirthday"
+                          android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:layout_marginTop="10dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textSize="16sp"
+                          android:text="Telefon Numarası:"/>
+
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textSize="16sp"
+                          android:id="@+id/tvPatientPhoneNumber"
+                          android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:layout_marginTop="10dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textSize="16sp"
+                          android:text="Adresi:"/>
+
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textSize="16sp"
+                          android:id="@+id/tvPatientAddress"
+                          android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:layout_marginTop="10dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textSize="16sp"
+                          android:text="Aktivite Sıklığı:"/>
+
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textSize="16sp"
+                          android:id="@+id/tvPatientActivityFrequency"
+                          android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:layout_marginTop="10dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textSize="16sp"
+                          android:text="Sigara Kullanım Sıklığı:"/>
+
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textSize="16sp"
+                          android:id="@+id/tvPatientSmokingFrequency"
+                          android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:layout_marginTop="10dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textSize="16sp"
+                          android:text="Alkol Kullanım Sıklığı:"/>
+
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textSize="16sp"
+                          android:id="@+id/tvPatientAlcoholFrequency"
+                          android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:layout_marginTop="10dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textSize="16sp"
+                          android:text="Kolestrol LDL Değeri:"/>
+
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textSize="16sp"
+                          android:id="@+id/tvPatientKolestrolLDL"
+                          android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:layout_marginTop="10dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textSize="16sp"
+                          android:text="Kolestrol HDL Değeri:"/>
+
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textSize="16sp"
+                          android:id="@+id/tvPatientKolestrolHDL"
+                          android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:layout_marginTop="10dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textSize="16sp"
+                          android:text="Yüksek Tansiyon:"/>
+
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textSize="16sp"
+                          android:id="@+id/tvPatientHighTension"
+                          android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                          android:orientation="horizontal"
+                          android:layout_marginTop="10dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textSize="16sp"
+                          android:text="Şeker Hastalığı:"/>
+
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                          android:layout_weight="1"
+                          android:textSize="16sp"
+                          android:id="@+id/tvPatientDiabets"
+                          android:textStyle="bold"/>
+            </LinearLayout>
+
+            <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="Hastanın Anlık ECG Sinyalleri"
+                    android:id="@+id/bGoPatientECGSignalList"
+                    android:layout_marginTop="20dp"/>
+
+            <Button android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:id="@+id/bDefineRule"
+                    android:text="Hastaya Özel Kural Tanımla"/>
 
         </LinearLayout>
 
-    </LinearLayout>
 
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                  android:orientation="vertical"
-                  android:layout_below="@+id/llUserImage"
-                  android:layout_margin="20dp">
+    </RelativeLayout>
 
-        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
-
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:text="Hasta Bilgileri"
-                      android:id="@+id/tvHeader"
-                      android:textSize="20sp" android:layout_centerVertical="true" android:layout_alignParentLeft="true"
-                      android:layout_alignParentStart="true"/>
-            <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:id="@+id/bFollow"
-                    android:layout_alignParentRight="true"
-                    android:drawableLeft="@drawable/ic_action_add_person"
-                    android:text="Takip Et"/>
-
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                      android:id="@+id/tvFollowing"
-                      android:textSize="20sp"
-                      android:text="Takip Ediliyor" android:layout_centerVertical="true"
-                      android:layout_alignParentRight="true" android:layout_alignParentEnd="true"/>
-
-        </RelativeLayout>
-
-        <View android:layout_width="match_parent" android:layout_height="1dp"
-              android:background="#000000"/>
-
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:orientation="horizontal"
-                      android:layout_marginTop="10dp">
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                      android:layout_weight="1"
-                      android:textSize="16sp"
-                      android:text="Doğum Tarihi:"/>
-
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                      android:layout_weight="1"
-                      android:textSize="16sp"
-                      android:id="@+id/tvPatientBirthday"
-                      android:textStyle="bold"/>
-        </LinearLayout>
-
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:orientation="horizontal"
-                      android:layout_marginTop="10dp">
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                      android:layout_weight="1"
-                      android:textSize="16sp"
-                      android:text="Telefon Numarası:"/>
-
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                      android:layout_weight="1"
-                      android:textSize="16sp"
-                      android:id="@+id/tvPatientPhoneNumber"
-                      android:textStyle="bold"/>
-        </LinearLayout>
-
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:orientation="horizontal"
-                      android:layout_marginTop="10dp">
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                      android:layout_weight="1"
-                      android:textSize="16sp"
-                      android:text="Adresi:"/>
-
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                      android:layout_weight="1"
-                      android:textSize="16sp"
-                      android:id="@+id/tvPatientAddress"
-                      android:textStyle="bold"/>
-        </LinearLayout>
-
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:orientation="horizontal"
-                      android:layout_marginTop="10dp">
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                      android:layout_weight="1"
-                      android:textSize="16sp"
-                      android:text="Aktivite Sıklığı:"/>
-
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                      android:layout_weight="1"
-                      android:textSize="16sp"
-                      android:id="@+id/tvPatientActivityFrequency"
-                      android:textStyle="bold"/>
-        </LinearLayout>
-
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:orientation="horizontal"
-                      android:layout_marginTop="10dp">
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                      android:layout_weight="1"
-                      android:textSize="16sp"
-                      android:text="Sigara Kullanım Sıklığı:"/>
-
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                      android:layout_weight="1"
-                      android:textSize="16sp"
-                      android:id="@+id/tvPatientSmokingFrequency"
-                      android:textStyle="bold"/>
-        </LinearLayout>
-
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:orientation="horizontal"
-                      android:layout_marginTop="10dp">
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                      android:layout_weight="1"
-                      android:textSize="16sp"
-                      android:text="Alkol Kullanım Sıklığı:"/>
-
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                      android:layout_weight="1"
-                      android:textSize="16sp"
-                      android:id="@+id/tvPatientAlcoholFrequency"
-                      android:textStyle="bold"/>
-        </LinearLayout>
-
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:orientation="horizontal"
-                      android:layout_marginTop="10dp">
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                      android:layout_weight="1"
-                      android:textSize="16sp"
-                      android:text="Kolestrol LDL Değeri:"/>
-
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                      android:layout_weight="1"
-                      android:textSize="16sp"
-                      android:id="@+id/tvPatientKolestrolLDL"
-                      android:textStyle="bold"/>
-        </LinearLayout>
-
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:orientation="horizontal"
-                      android:layout_marginTop="10dp">
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                      android:layout_weight="1"
-                      android:textSize="16sp"
-                      android:text="Kolestrol HDL Değeri:"/>
-
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                      android:layout_weight="1"
-                      android:textSize="16sp"
-                      android:id="@+id/tvPatientKolestrolHDL"
-                      android:textStyle="bold"/>
-        </LinearLayout>
-
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:orientation="horizontal"
-                      android:layout_marginTop="10dp">
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                      android:layout_weight="1"
-                      android:textSize="16sp"
-                      android:text="Yüksek Tansiyon:"/>
-
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                      android:layout_weight="1"
-                      android:textSize="16sp"
-                      android:id="@+id/tvPatientHighTension"
-                      android:textStyle="bold"/>
-        </LinearLayout>
-
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                      android:orientation="horizontal"
-                      android:layout_marginTop="10dp">
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                      android:layout_weight="1"
-                      android:textSize="16sp"
-                      android:text="Şeker Hastalığı:"/>
-
-            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                      android:layout_weight="1"
-                      android:textSize="16sp"
-                      android:id="@+id/tvPatientDiabets"
-                      android:textStyle="bold"/>
-        </LinearLayout>
-
-        <Button android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:text="Hastanın Anlık ECG Sinyalleri"
-                android:id="@+id/bGoPatientECGSignalList"
-                android:layout_marginTop="20dp"/>
-
-        <Button android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:id="@+id/bDefineRule"
-                android:text="Hastaya Özel Kural Tanımla"/>
-
-    </LinearLayout>
-
-
-</RelativeLayout>
+</ScrollView>

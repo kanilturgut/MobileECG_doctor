@@ -88,7 +88,8 @@ public class PastECGDatas extends Activity implements View.OnClickListener {
                     ecgDataList = ecgDatas;
                     initialize(start, end);
                 } else {
-                    Toast.makeText(context, "Üzgünüz ama sinyalleri listeleyemiyoruz. Lütfen daha sonra tekrar deneyiniz.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Bu tarihler arasında kayıtlı veri bulunmamaktadır.", Toast.LENGTH_LONG).show();
+                    finish();
                 }
 
             }

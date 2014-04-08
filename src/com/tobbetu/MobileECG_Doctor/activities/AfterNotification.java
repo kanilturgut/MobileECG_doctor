@@ -239,10 +239,14 @@ public class AfterNotification extends Activity implements View.OnClickListener 
                     graphView.setDataWithAdjustment(datas, "Shimmer", "u12");
 
                     i++;
-                    if (i == anomaly.getEcgDataList().size())
+                    if (i == anomaly.getEcgDataList().size()) {
                         handler.removeCallbacks(runnable);
-                    else
+
+                        playButton.setVisibility(Button.INVISIBLE);
+                        pauseButton.setVisibility(Button.INVISIBLE);
+                    } else {
                         handler.postDelayed(runnable, 5);
+                    }
                 }
             };
 

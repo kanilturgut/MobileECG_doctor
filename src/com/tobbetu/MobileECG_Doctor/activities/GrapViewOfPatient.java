@@ -143,16 +143,22 @@ public class GrapViewOfPatient extends Activity implements View.OnClickListener 
             runnable = new Runnable() {
                 @Override
                 public void run() {
+
+
                     int[] datas = new int[2];
                     datas[0] = anomaly.getEcgDataList().get(i).getRAW_ra_ll();
                     datas[1] = anomaly.getEcgDataList().get(i).getRAW_la_ll();
                     graphView.setDataWithAdjustment(datas, "Shimmer", "u12");
 
                     i++;
-                    if (i == anomaly.getEcgDataList().size())
+                    if (i == anomaly.getEcgDataList().size()) {
                         handler.removeCallbacks(runnable);
-                    else
+
+                        playButton.setVisibility(Button.INVISIBLE);
+                        pauseButton.setVisibility(Button.INVISIBLE);
+                    } else {
                         handler.postDelayed(runnable, 5);
+                    }
                 }
             };
 

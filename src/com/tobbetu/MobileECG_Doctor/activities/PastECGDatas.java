@@ -158,10 +158,14 @@ public class PastECGDatas extends Activity implements View.OnClickListener {
 
                 index++;
 
-                if (index == ecgDataList.size())
+                if (index == ecgDataList.size()) {
                     handler.removeCallbacks(runnable);
-                else
+
+                    playButton.setVisibility(Button.INVISIBLE);
+                    pauseButton.setVisibility(Button.INVISIBLE);
+                } else {
                     handler.postDelayed(runnable, 5);
+                }
             }
         };
 

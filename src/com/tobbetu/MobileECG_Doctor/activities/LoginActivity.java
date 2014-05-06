@@ -51,8 +51,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         tvRegister.setOnClickListener(this);
         bDoLogin.setOnClickListener(this);
 
-        etUsername.setText("kanilturgut");
-        etPassword.setText("123");
+        //etUsername.setText("kanilturgut");
+        //etPassword.setText("123");
 
     }
 
